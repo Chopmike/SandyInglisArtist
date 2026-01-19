@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Upload Artworks - Sandy Inglis Artist</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <a href="index.html">Sandy Inglis</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#gallery">Gallery</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Admin Section -->
+    <main class="admin-section">
+        <div class="container">
+            <h1>Admin Panel - Upload Artworks</h1>
+            <p class="admin-description">Use this panel to batch upload artworks and manage your gallery.</p>
+
+            <!-- Upload Form -->
+            <div class="upload-container">
+                <h2>Add New Artwork</h2>
+                <form id="artworkForm" class="artwork-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="artworkTitle">Artwork Title *</label>
+                            <input type="text" id="artworkTitle" name="title" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="artworkArtist">Artist Name *</label>
+                            <input type="text" id="artworkArtist" name="artist" value="Sandy Inglis" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="artworkYear">Year Created *</label>
+                            <input type="number" id="artworkYear" name="year" min="1900" max="2100" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="artworkCollection">Collection Name</label>
+                            <input type="text" id="artworkCollection" name="collection" placeholder="e.g., Contemporary Collection">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="artworkAccolades">Accolades</label>
+                            <select id="artworkAccolades" name="accolades">
+                                <option value="">None</option>
+                                <option value="Winner">Winner</option>
+                                <option value="Highly Commended">Highly Commended</option>
+                                <option value="Finalist">Finalist</option>
+                                <option value="People's Choice">People's Choice</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="artworkAccoladesDetail">Accolades Details</label>
+                            <input type="text" id="artworkAccoladesDetail" name="accoladesDetail" placeholder="e.g., Best Contemporary Art 2025">
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="artworkDescription">Description (Optional)</label>
+                        <textarea id="artworkDescription" name="description" rows="4" placeholder="e.g., Oil on canvas, 90x120cm. This piece comes framed and ready to hang..."></textarea>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="artworkImage">Upload Image *</label>
+                        <div class="image-upload-area" id="imageUploadArea">
+                            <input type="file" id="artworkImage" name="image" accept="image/*" required>
+                            <div class="upload-placeholder">
+                                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                <p>Click to upload or drag and drop</p>
+                                <span>JPG, PNG, or WEBP (recommended: max 2MB)</span>
+                            </div>
+                            <div class="image-preview" id="imagePreview" style="display: none;">
+                                <img src="" alt="Preview">
+                                <button type="button" class="remove-image" id="removeImage">&times;</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Add Artwork</button>
+                        <button type="button" class="btn btn-secondary" id="resetForm">Clear Form</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Existing Artworks Management -->
+            <div class="manage-container">
+                <h2>Manage Existing Artworks</h2>
+                <div class="artworks-list" id="artworksList">
+                    <!-- Artwork items will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Instructions -->
+            <div class="instructions-container">
+                <h2>Image Upload Guidelines</h2>
+                <div class="instructions-grid">
+                    <div class="instruction-card">
+                        <h3>📐 Dimensions</h3>
+                        <p>For best results, images should be at least 1200px on the longest side. The gallery uses responsive sizing, so all orientations (landscape, portrait, square) are supported without cropping.</p>
+                    </div>
+                    <div class="instruction-card">
+                        <h3>📁 File Format</h3>
+                        <p>Accepted formats: JPG, PNG, WEBP. WEBP is recommended for best performance and quality balance.</p>
+                    </div>
+                    <div class="instruction-card">
+                        <h3>💾 File Size</h3>
+                        <p>Keep files under 2MB for optimal loading times. Use image compression tools if needed.</p>
+                    </div>
+                    <div class="instruction-card">
+                        <h3>🎨 Quality</h3>
+                        <p>Use high-quality images with good lighting and sharp focus. Images will be displayed in a professional gallery layout.</p>
+                    </div>
+                </div>
+
+                <div class="note-box">
+                    <strong>Note:</strong> After uploading artworks, you'll need to commit and push the changes to your GitHub repository for them to appear on the live website. The artworks are stored in <code>data/artworks.json</code> and images in <code>images/artworks/</code>.
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success/Error Modal -->
+    <div class="notification" id="notification">
+        <div class="notification-content">
+            <span id="notificationMessage"></span>
+            <button class="notification-close" id="notificationClose">&times;</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 Sandy Inglis Artist. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
