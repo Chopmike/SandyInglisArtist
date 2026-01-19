@@ -1,32 +1,33 @@
 [
   {
     "id": 1,
-    "title": "Sunset Dreams",
+    "title": "Alysia Is Pretty",
     "artist": "Sandy Inglis",
-    "year": 2025,
-    "collection": "Contemporary Collection",
-    "accolades": "Winner - Best Contemporary Art 2025",
-    "description": "Oil on canvas, 90x120cm. This piece comes framed and ready to hang. Inspired by the golden hour along the Australian coast.",
-    "image": "images/artworks/sample1.jpg"
+    "year": 2026,
+    "collection": "The 1974 Model",
+    "accolades": "Highly Commended - Was shown in the Hunters Hill Exhibition",
+    "description": "Oil on canvas, ready to hang.",
+    "image": "images/artworks/729.jpg"
   },
   {
     "id": 2,
-    "title": "Urban Echoes",
+    "title": "The Grandkids",
     "artist": "Sandy Inglis",
-    "year": 2024,
-    "collection": "Modern Series",
-    "accolades": "Highly Commended - National Art Prize 2024",
-    "description": "Mixed media on canvas, 100x100cm. Exploring the intersection of nature and urban life.",
-    "image": "images/artworks/sample2.jpg"
+    "year": 2026,
+    "collection": "",
+    "accolades": "",
+    "description": "this is a photo",
+    "image": "images/artworks/2944_1129855171325_4308886_n.jpeg"
   },
   {
     "id": 3,
-    "title": "Tranquil Waters",
+    "title": "Another image",
     "artist": "Sandy Inglis",
-    "year": 2024,
-    "collection": "Nature Collection",
+    "year": 2026,
+    "collection": "",
     "accolades": "",
-    "description": "Acrylic on canvas, 80x60cm. Unframed. A serene depiction of reflective waters.",
-    "image": "images/artworks/sample3.jpg"
+    "description": "",
+    "image": "images/artworks/20150124_154853.jpg"
   }
+]
 ]
