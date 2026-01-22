@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulk Image Upload - Generate JSON</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #8B3A3A;
+            margin-bottom: 1rem;
+        }
+        
+        .intro {
+            background: #fff3cd;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .intro h2 {
+            color: #856404;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .intro ol {
+            margin-left: 1.5rem;
+            color: #856404;
+        }
+        
+        .intro li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .upload-area {
+            border: 3px dashed #8B3A3A;
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+            background: #f8f6f4;
+            margin-bottom: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-area:hover {
+            background: #f0ebe8;
+            border-color: #6B2828;
+        }
+        
+        .upload-area.dragover {
+            background: #e8e0db;
+            border-color: #6B2828;
+        }
+        
+        .upload-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        input[type="file"] {
+            display: none;
+        }
+        
+        .btn {
+            background: #8B3A3A;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0.5rem;
+            transition: background 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: #6B2828;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #8B3A3A;
+            border: 2px solid #8B3A3A;
+        }
+        
+        .btn-secondary:hover {
+            background: #8B3A3A;
+            color: white;
+        }
+        
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .preview-item {
+            position: relative;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+        }
+        
+        .preview-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .preview-info {
+            padding: 0.75rem;
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        .preview-name {
+            font-weight: 600;
+            color: #2c2c2c;
+            margin-bottom: 0.25rem;
+            word-break: break-word;
+        }
+        
+        .remove-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+        
+        .remove-btn:hover {
+            background: #c0392b;
+        }
+        
+        .json-output {
+            background: #2c2c2c;
+            color: #0f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            max-height: 500px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 2rem 0;
+        }
+        
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            display: none;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 2rem;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f8f6f4;
+            border-radius: 8px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #8B3A3A;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📸 Bulk Image Upload Generator</h1>
+        
+        <div class="intro">
+            <h2>How to Use This Tool:</h2>
+            <ol>
+                <li>Select or drag multiple images from your <code>images/artworks/</code> folder</li>
+                <li>The tool will generate JSON code with all image references</li>
+                <li>Copy the generated JSON and paste it into <code>data/artworks.json</code></li>
+                <li>Update artwork details (title, year, collection, etc.) in the JSON</li>
+                <li>Commit and push to GitHub Pages</li>
+            </ol>
+        </div>
+        
+        <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+            <div class="upload-icon">📁</div>
+            <h2>Click to Select Images or Drag & Drop</h2>
+            <p>Select multiple images at once (JPG, PNG, WEBP)</p>
+        </div>
+        
+        <input type="file" id="fileInput" multiple accept="image/*">
+        
+        <div class="stats" id="stats" style="display: none;">
+            <div class="stat-item">
+                <div class="stat-value" id="imageCount">0</div>
+                <div class="stat-label">Images Selected</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="totalSize">0 MB</div>
+                <div class="stat-label">Total Size</div>
+            </div>
+        </div>
+        
+        <div class="preview-grid" id="previewGrid"></div>
+        
+        <div id="actions" style="display: none; text-align: center; margin: 2rem 0;">
+            <button class="btn" onclick="generateJSON()">Generate JSON</button>
+            <button class="btn btn-secondary" onclick="clearAll()">Clear All</button>
+        </div>
+        
+        <div id="success" class="success">
+            ✅ JSON copied to clipboard! Paste it into <code>data/artworks.json</code>
+        </div>
+        
+        <div id="jsonOutput"></div>
+    </div>
+
+    <script>
+        let selectedFiles = [];
+        let fileObjects = [];
+        
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const previewGrid = document.getElementById('previewGrid');
+        const stats = document.getElementById('stats');
+        const actions = document.getElementById('actions');
+        const success = document.getElementById('success');
+        
+        // Drag and drop handlers
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+        
+        // File input handler
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+        
+        function handleFiles(files) {
+            for (let file of files) {
+                if (file.type.startsWith('image/')) {
+                    selectedFiles.push(file);
+                    fileObjects.push({
+                        name: file.name,
+                        size: file.size,
+                        type: file.type,
+                        file: file
+                    });
+                }
+            }
+            updatePreview();
+            updateStats();
+        }
+        
+        function updatePreview() {
+            previewGrid.innerHTML = '';
+            
+            if (selectedFiles.length === 0) {
+                stats.style.display = 'none';
+                actions.style.display = 'none';
+                return;
+            }
+            
+            stats.style.display = 'flex';
+            actions.style.display = 'block';
+            
+            selectedFiles.forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const div = document.createElement('div');
+                    div.className = 'preview-item';
+                    div.innerHTML = `
+                        <img src="${e.target.result}" alt="${file.name}">
+                        <button class="remove-btn" onclick="removeFile(${index})">&times;</button>
+                        <div class="preview-info">
+                            <div class="preview-name">${file.name}</div>
+                            <div>${(file.size / 1024 / 1024).toFixed(2)} MB</div>
+                        </div>
+                    `;
+                    previewGrid.appendChild(div);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+        
+        function removeFile(index) {
+            selectedFiles.splice(index, 1);
+            fileObjects.splice(index, 1);
+            updatePreview();
+            updateStats();
+        }
+        
+        function updateStats() {
+            const count = selectedFiles.length;
+            const totalSize = selectedFiles.reduce((sum, file) => sum + file.size, 0);
+            
+            document.getElementById('imageCount').textContent = count;
+            document.getElementById('totalSize').textContent = (totalSize / 1024 / 1024).toFixed(2) + ' MB';
+        }
+        
+        function clearAll() {
+            if (confirm('Clear all selected images?')) {
+                selectedFiles = [];
+                fileObjects = [];
+                updatePreview();
+                updateStats();
+                document.getElementById('jsonOutput').innerHTML = '';
+                success.style.display = 'none';
+            }
+        }
+        
+        function generateJSON() {
+            if (selectedFiles.length === 0) {
+                alert('Please select some images first!');
+                return;
+            }
+            
+            // Get existing data if any
+            let startId = 1;
+            
+            const artworks = selectedFiles.map((file, index) => {
+                // Clean filename for title (remove extension and replace separators)
+                const cleanName = file.name
+                    .replace(/\.(jpg|jpeg|png|webp)$/i, '')
+                    .replace(/[-_]/g, ' ')
+                    .split(' ')
+                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(' ');
+                
+                return {
+                    id: startId + index,
+                    title: cleanName,
+                    artist: "Sandy Inglis",
+                    year: new Date().getFullYear(),
+                    collection: "Contemporary Collection",
+                    accolades: "",
+                    description: "Add description here - medium, size, framing details, etc.",
+                    image: `images/artworks/${file.name}`
+                };
+            });
+            
+            const json = JSON.stringify(artworks, null, 2);
+            
+            const output = document.getElementById('jsonOutput');
+            output.className = 'json-output';
+            output.textContent = json;
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(json).then(() => {
+                success.style.display = 'block';
+                setTimeout(() => {
+                    success.style.display = 'none';
+                }, 5000);
+            });
+            
+            // Scroll to output
+            output.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
