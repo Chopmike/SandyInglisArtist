@@ -102,6 +102,117 @@
     flex-wrap: wrap;
 }
 
+/* Availability Status */
+.availability-status {
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.availability-status.available {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.availability-status.sold {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.availability-status.commission-only {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+/* Artwork Options Cards */
+.artwork-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 2rem;
+}
+
+.option-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid;
+}
+
+.option-card.available-card {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    border-color: #28a745;
+}
+
+.option-card.sold-card {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    border-color: #dc3545;
+}
+
+.option-card.commission-card {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeeba 100%);
+    border-color: #ffc107;
+}
+
+.option-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: white;
+}
+
+.available-card .option-icon {
+    color: #28a745;
+}
+
+.sold-card .option-icon {
+    color: #dc3545;
+}
+
+.commission-card .option-icon {
+    color: #856404;
+}
+
+.option-content h4 {
+    margin: 0 0 8px 0;
+    font-size: 1.1rem;
+    color: var(--charcoal);
+}
+
+.option-content p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--charcoal);
+    opacity: 0.85;
+    line-height: 1.5;
+}
+
+/* Outline Button */
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--ochre);
+    color: var(--ochre);
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn-outline:hover {
+    background: var(--ochre);
+    color: white;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
     .artwork-content {

@@ -21,7 +21,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="index.html#gallery">Gallery</a></li>
                 <li><a href="about.html">About Sandy Inglis</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="contact.html">Contact</a></li>
                 <li><a href="admin.html" class="admin-link">Admin</a></li>
             </ul>
             <div class="hamburger">
@@ -62,13 +62,45 @@
                             <span class="metadata-label">Accolades:</span>
                             <span id="artworkAccolades" class="metadata-value accolades-text"></span>
                         </div>
+                        <div class="metadata-row availability-row" id="availabilityRow">
+                            <span class="metadata-label">Availability:</span>
+                            <span id="artworkAvailability" class="metadata-value availability-status"></span>
+                        </div>
                     </div>
                     
                     <div class="artwork-description" id="artworkDescription"></div>
                     
+                    <!-- Availability & Commission Options -->
+                    <div class="artwork-options">
+                        <div class="option-card available-card" id="availableCard">
+                            <div class="option-icon">✓</div>
+                            <div class="option-content">
+                                <h4>Available for Sale</h4>
+                                <p>This original artwork is available for purchase. Contact Sandy to discuss pricing and shipping.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="option-card sold-card" id="soldCard" style="display: none;">
+                            <div class="option-icon">✗</div>
+                            <div class="option-content">
+                                <h4>Sold / In Private Collection</h4>
+                                <p>This piece is no longer available, but you can commission a similar work.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="option-card commission-card">
+                            <div class="option-icon">🎨</div>
+                            <div class="option-content">
+                                <h4>Commission Something Similar</h4>
+                                <p>Love this style? Sandy can create a unique commissioned piece inspired by this work, tailored to your specifications.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="artwork-actions">
-                        <a href="index.html#contact" class="btn btn-primary">Enquire About This Piece</a>
-                        <a href="index.html#gallery" class="btn btn-secondary">View More Artworks</a>
+                        <a href="contact.html?artwork=" id="enquireLink" class="btn btn-primary">Enquire About This Piece</a>
+                        <a href="contact.html?type=commission" class="btn btn-secondary">Commission Similar Work</a>
+                        <a href="index.html#gallery" class="btn btn-outline">View More Artworks</a>
                     </div>
                 </div>
             </div>
@@ -90,8 +122,8 @@
                     <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="index.html#gallery">Gallery</a></li>
-                        <li><a href="index.html#about">About Sandy Inglis</a></li>
-                        <li><a href="index.html#contact">Contact</a></li>
+                        <li><a href="about.html">About Sandy Inglis</a></li>
+                        <li><a href="contact.html">Contact</a></li>
                         <li><a href="admin.html">Admin</a></li>
                     </ul>
                 </div>

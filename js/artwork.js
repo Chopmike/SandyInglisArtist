@@ -44,6 +44,36 @@ async function loadArtworkDetails(artworkId) {
             document.getElementById('accoladesRow').style.display = 'flex';
         }
         
+        // Handle availability status
+        const availabilityEl = document.getElementById('artworkAvailability');
+        const availableCard = document.getElementById('availableCard');
+        const soldCard = document.getElementById('soldCard');
+        
+        const availability = artwork.availability || 'available'; // Default to available
+        
+        if (availability === 'available') {
+            availabilityEl.textContent = 'Available for Sale';
+            availabilityEl.classList.add('available');
+            availableCard.style.display = 'flex';
+            soldCard.style.display = 'none';
+        } else if (availability === 'sold') {
+            availabilityEl.textContent = 'Sold / In Private Collection';
+            availabilityEl.classList.add('sold');
+            availableCard.style.display = 'none';
+            soldCard.style.display = 'flex';
+        } else if (availability === 'commission-only') {
+            availabilityEl.textContent = 'Commission Only';
+            availabilityEl.classList.add('commission-only');
+            availableCard.style.display = 'none';
+            soldCard.style.display = 'none';
+        }
+        
+        // Update enquiry link with artwork title
+        const enquireLink = document.getElementById('enquireLink');
+        if (enquireLink) {
+            enquireLink.href = `contact.html?artwork=${encodeURIComponent(artwork.title)}&type=enquire-artwork`;
+        }
+        
         // Handle description
         const descriptionEl = document.getElementById('artworkDescription');
         if (artwork.description) {
