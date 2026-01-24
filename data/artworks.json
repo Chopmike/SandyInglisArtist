@@ -1,33 +1,62 @@
 [
   {
     "id": 1,
-    "title": "Alysia Is Pretty",
+    "title": "Outback Sunrise",
     "artist": "Sandy Inglis",
-    "year": 2026,
-    "collection": "The 1974 Model",
-    "accolades": "Highly Commended - Was shown in the Hunters Hill Exhibition",
-    "description": "Oil on canvas, ready to hang.",
-    "image": "images/artworks/729.jpg"
+    "year": 2025,
+    "collection": "Australian Landscapes",
+    "accolades": "Winner - Best Contemporary Art 2025",
+    "description": "Acrylic on canvas, 100x75cm. Framed. This vibrant piece captures the essence of dawn breaking over the Australian outback, featuring traditional Aboriginal-inspired concentric circles representing connection to country.",
+    "image": "images/artworks/placeholder-1.svg"
   },
   {
     "id": 2,
-    "title": "The Grandkids",
+    "title": "Desert Dreaming",
     "artist": "Sandy Inglis",
-    "year": 2026,
-    "collection": "",
-    "accolades": "",
-    "description": "this is a photo",
-    "image": "images/artworks/2944_1129855171325_4308886_n.jpeg"
+    "year": 2024,
+    "collection": "Dreamtime Series",
+    "accolades": "Highly Commended - National Art Prize 2024",
+    "description": "Mixed media on canvas, 75x100cm. Unframed. A vertical composition inspired by the flowing rivers and ancient pathways of the Australian desert landscape.",
+    "image": "images/artworks/placeholder-2.svg"
   },
   {
     "id": 3,
-    "title": "Another image",
+    "title": "Spirit of the Land",
     "artist": "Sandy Inglis",
-    "year": 2026,
-    "collection": "",
+    "year": 2025,
+    "collection": "Spiritual Collection",
+    "accolades": "People's Choice Award 2025",
+    "description": "Oil on canvas, 90x90cm. Framed in native timber. A powerful representation of the sun spirit radiating energy across the ochre landscape.",
+    "image": "images/artworks/placeholder-3.svg"
+  },
+  {
+    "id": 4,
+    "title": "Ochre Sunset",
+    "artist": "Sandy Inglis",
+    "year": 2024,
+    "collection": "Australian Landscapes",
     "accolades": "",
-    "description": "",
-    "image": "images/artworks/20150124_154853.jpg"
+    "description": "Acrylic on canvas, 120x67cm. Panoramic piece capturing the stunning colours of an outback sunset with silhouetted native trees.",
+    "image": "images/artworks/placeholder-4.svg"
+  },
+  {
+    "id": 5,
+    "title": "Sacred Waterhole",
+    "artist": "Sandy Inglis",
+    "year": 2023,
+    "collection": "Dreamtime Series",
+    "accolades": "Finalist - Indigenous Art Award 2023",
+    "description": "Mixed media on canvas, 80x80cm. Framed. Depicts a sacred waterhole surrounded by traditional dot work patterns and animal tracks.",
+    "image": "images/artworks/placeholder-5.svg"
+  },
+  {
+    "id": 6,
+    "title": "Uluru Dreams",
+    "artist": "Sandy Inglis",
+    "year": 2025,
+    "collection": "Spiritual Collection",
+    "accolades": "Winner - Landscape Excellence 2025",
+    "description": "Oil on canvas, 100x75cm. Framed. A night scene featuring Uluru under the Southern Cross, blending traditional and contemporary styles.",
+    "image": "images/artworks/placeholder-6.svg"
   }
-]
 ]

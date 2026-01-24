@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
+  <defs>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#C41E3A"/>
+      <stop offset="30%" style="stop-color:#E25822"/>
+      <stop offset="60%" style="stop-color:#CC7722"/>
+      <stop offset="100%" style="stop-color:#DAA520"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="500" fill="url(#sky)"/>
+  <!-- Horizon line -->
+  <rect x="0" y="350" width="900" height="150" fill="#5C4033"/>
+  <!-- Mountains/hills -->
+  <path d="M0 350 L150 250 L300 350 L450 280 L600 350 L750 230 L900 350 L900 500 L0 500 Z" fill="#8B0000" opacity="0.6"/>
+  <!-- Trees as Aboriginal symbols -->
+  <g fill="#2c2c2c">
+    <rect x="150" y="320" width="8" height="60"/>
+    <circle cx="154" cy="310" r="20" fill="#5C4033"/>
+    <rect x="450" y="300" width="10" height="80"/>
+    <circle cx="455" cy="285" r="25" fill="#5C4033"/>
+    <rect x="700" y="310" width="8" height="70"/>
+    <circle cx="704" cy="300" r="22" fill="#5C4033"/>
+  </g>
+  <!-- Sun -->
+  <circle cx="750" cy="100" r="50" fill="#FFF8DC"/>
+  <circle cx="750" cy="100" r="35" fill="#DAA520"/>
+  <!-- Dot pattern overlay -->
+  <g fill="rgba(255,255,255,0.2)">
+    <circle cx="100" cy="80" r="4"/>
+    <circle cx="200" cy="120" r="3"/>
+    <circle cx="350" cy="60" r="4"/>
+    <circle cx="500" cy="100" r="3"/>
+    <circle cx="600" cy="70" r="4"/>
+  </g>
+  <!-- Text -->
+  <text x="450" y="430" font-family="serif" font-size="28" fill="white" text-anchor="middle" font-weight="bold">Ochre Sunset</text>
+  <text x="450" y="465" font-family="sans-serif" font-size="16" fill="rgba(255,255,255,0.8)" text-anchor="middle">Sandy Inglis • 2024</text>
+</svg>

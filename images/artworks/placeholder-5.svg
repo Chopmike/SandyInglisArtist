@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+  <defs>
+    <linearGradient id="bg5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#5C4033"/>
+      <stop offset="50%" style="stop-color:#C2B280"/>
+      <stop offset="100%" style="stop-color:#D2691E"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#bg5)"/>
+  <!-- Kangaroo tracks pattern (simplified) -->
+  <g fill="#8B0000">
+    <ellipse cx="150" cy="150" rx="20" ry="35" transform="rotate(-30 150 150)"/>
+    <ellipse cx="250" cy="200" rx="20" ry="35" transform="rotate(-30 250 200)"/>
+    <ellipse cx="350" cy="150" rx="20" ry="35" transform="rotate(-30 350 150)"/>
+    <ellipse cx="450" cy="200" rx="20" ry="35" transform="rotate(-30 450 200)"/>
+  </g>
+  <!-- Water hole -->
+  <ellipse cx="300" cy="350" rx="120" ry="80" fill="#C41E3A"/>
+  <ellipse cx="300" cy="350" rx="90" ry="60" fill="#E25822"/>
+  <ellipse cx="300" cy="350" rx="60" ry="40" fill="#CC7722"/>
+  <ellipse cx="300" cy="350" rx="30" ry="20" fill="#FFF8DC"/>
+  <!-- Surrounding dots -->
+  <g fill="#FFF8DC">
+    <circle cx="150" cy="350" r="8"/>
+    <circle cx="180" cy="320" r="6"/>
+    <circle cx="170" cy="380" r="7"/>
+    <circle cx="450" cy="350" r="8"/>
+    <circle cx="420" cy="320" r="6"/>
+    <circle cx="430" cy="380" r="7"/>
+    <circle cx="300" cy="250" r="8"/>
+    <circle cx="300" cy="450" r="8"/>
+  </g>
+  <!-- Text -->
+  <text x="300" y="530" font-family="serif" font-size="26" fill="white" text-anchor="middle" font-weight="bold">Sacred Waterhole</text>
+  <text x="300" y="565" font-family="sans-serif" font-size="15" fill="rgba(255,255,255,0.8)" text-anchor="middle">Sandy Inglis • 2023</text>
+</svg>

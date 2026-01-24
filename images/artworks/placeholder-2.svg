@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B0000"/>
+      <stop offset="40%" style="stop-color:#B7410E"/>
+      <stop offset="70%" style="stop-color:#C2B280"/>
+      <stop offset="100%" style="stop-color:#5C4033"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="800" fill="url(#bg2)"/>
+  <!-- Aboriginal dot painting style -->
+  <g fill="#FFF8DC">
+    <circle cx="300" cy="200" r="60" fill="none" stroke="#DAA520" stroke-width="4"/>
+    <circle cx="300" cy="200" r="40" fill="none" stroke="#CC7722" stroke-width="3"/>
+    <circle cx="300" cy="200" r="20" fill="#E25822"/>
+  </g>
+  <!-- Wavy lines representing rivers/paths -->
+  <path d="M50 400 Q150 350 250 400 T450 400 T550 400" stroke="#DAA520" stroke-width="6" fill="none"/>
+  <path d="M50 450 Q150 400 250 450 T450 450 T550 450" stroke="#FFF8DC" stroke-width="4" fill="none"/>
+  <path d="M50 500 Q150 450 250 500 T450 500 T550 500" stroke="#CC7722" stroke-width="5" fill="none"/>
+  <!-- Scattered dots -->
+  <circle cx="100" cy="300" r="8" fill="#FFF8DC"/>
+  <circle cx="200" cy="280" r="6" fill="#DAA520"/>
+  <circle cx="400" cy="320" r="8" fill="#FFF8DC"/>
+  <circle cx="500" cy="290" r="7" fill="#E2725B"/>
+  <circle cx="150" cy="600" r="10" fill="#DAA520"/>
+  <circle cx="450" cy="620" r="8" fill="#FFF8DC"/>
+  <!-- Text -->
+  <text x="300" y="720" font-family="serif" font-size="26" fill="white" text-anchor="middle" font-weight="bold">Desert Dreaming</text>
+  <text x="300" y="755" font-family="sans-serif" font-size="15" fill="rgba(255,255,255,0.8)" text-anchor="middle">Sandy Inglis • 2024</text>
+</svg>
