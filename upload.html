@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload - Sandy Inglis Artist Admin</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <style>
+        .upload-container {
+            max-width: 900px;
+            margin: 120px auto 60px;
+            padding: 40px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .upload-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .upload-header h1 {
+            color: var(--vibrant-red);
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .upload-header p {
+            color: var(--charcoal);
+            opacity: 0.7;
+        }
+        
+        .connection-status {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .connection-status.connected {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .connection-status.disconnected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .connected .status-dot {
+            background: #28a745;
+        }
+        
+        .disconnected .status-dot {
+            background: #dc3545;
+        }
+        
+        .upload-section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: var(--cream);
+            border-radius: 8px;
+        }
+        
+        .upload-section h2 {
+            color: var(--charcoal);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .folder-select {
+            margin-bottom: 20px;
+        }
+        
+        .folder-select label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--charcoal);
+        }
+        
+        .folder-select select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0d8d0;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+        }
+        
+        .drop-zone {
+            border: 3px dashed var(--ochre);
+            border-radius: 12px;
+            padding: 60px 20px;
+            text-align: center;
+            background: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .drop-zone:hover,
+        .drop-zone.dragover {
+            border-color: var(--vibrant-red);
+            background: #fff5f5;
+        }
+        
+        .drop-zone-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .drop-zone h3 {
+            color: var(--charcoal);
+            margin-bottom: 10px;
+        }
+        
+        .drop-zone p {
+            color: var(--charcoal);
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .browse-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 25px;
+            background: var(--ochre);
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .browse-btn:hover {
+            background: var(--terracotta);
+        }
+        
+        .upload-queue {
+            margin-top: 30px;
+        }
+        
+        .upload-queue h3 {
+            color: var(--charcoal);
+            margin-bottom: 15px;
+        }
+        
+        .queue-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #e0d8d0;
+        }
+        
+        .queue-item-preview {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+        
+        .queue-item-info {
+            flex: 1;
+        }
+        
+        .queue-item-name {
+            font-weight: 500;
+            color: var(--charcoal);
+            margin-bottom: 5px;
+        }
+        
+        .queue-item-size {
+            font-size: 0.85rem;
+            color: var(--charcoal);
+            opacity: 0.6;
+        }
+        
+        .queue-item-status {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .queue-item-status.pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .queue-item-status.uploading {
+            background: #cce5ff;
+            color: #004085;
+        }
+        
+        .queue-item-status.complete {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .queue-item-status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .queue-item-remove {
+            background: none;
+            border: none;
+            color: #dc3545;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 5px;
+        }
+        
+        .upload-actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0d8d0;
+            border-radius: 4px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+        
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--ochre), var(--terracotta));
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        .uploaded-images {
+            margin-top: 40px;
+        }
+        
+        .uploaded-images h3 {
+            color: var(--charcoal);
+            margin-bottom: 20px;
+        }
+        
+        .uploaded-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        
+        .uploaded-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+            border: 1px solid #e0d8d0;
+        }
+        
+        .uploaded-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+        
+        .uploaded-item-info {
+            padding: 10px;
+        }
+        
+        .uploaded-item-name {
+            font-size: 0.8rem;
+            color: var(--charcoal);
+            word-break: break-all;
+        }
+        
+        .copy-url-btn {
+            width: 100%;
+            padding: 8px;
+            margin-top: 8px;
+            background: var(--ochre);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        
+        .copy-url-btn:hover {
+            background: var(--terracotta);
+        }
+        
+        .info-box {
+            background: #e7f3ff;
+            border: 1px solid #b8daff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .info-box h4 {
+            color: #004085;
+            margin-bottom: 10px;
+        }
+        
+        .info-box p {
+            color: #004085;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .info-box code {
+            background: #d4e5f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .warning-box h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .warning-box p {
+            color: #856404;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/logo-placeholder.svg" alt="Sandy Inglis Artist" class="logo-image">
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#gallery">Gallery</a></li>
+                <li><a href="about.html">About Sandy Inglis</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="admin.html" class="active admin-link">Admin</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <div class="upload-container">
+        <div class="upload-header">
+            <h1>📤 Image Upload to Azure</h1>
+            <p>Upload images directly to Azure Blob Storage for your website</p>
+        </div>
+
+        <div class="connection-status connected" id="connectionStatus">
+            <span class="status-dot"></span>
+            <span>Connected to Azure Storage: <strong>20260124sandiinlis</strong></span>
+        </div>
+
+        <div class="info-box">
+            <h4>📁 Folder Structure</h4>
+            <p>Images are organized into folders within the <code>blobs</code> container:</p>
+            <p>
+                • <code>artworks/</code> - Artwork images for the gallery<br>
+                • <code>about/</code> - Photos of Sandy for the About page<br>
+                • <code>logo/</code> - Logo images<br>
+                • <code>hero/</code> - Hero banner images<br>
+                • <code>placeholders/</code> - Placeholder images
+            </p>
+        </div>
+
+        <div class="warning-box">
+            <h4>⚠️ Security Note</h4>
+            <p>For security, direct browser uploads to Azure require a SAS token or backend proxy. 
+               For now, use the <strong>Azure Storage Explorer</strong> or VS Code Azure extension to upload images, 
+               then copy the URL here to use in your website.</p>
+        </div>
+
+        <div class="upload-section">
+            <h2>🖼️ Upload Images</h2>
+            
+            <div class="folder-select">
+                <label for="folderSelect">Select destination folder:</label>
+                <select id="folderSelect">
+                    <option value="artworks/">Artworks (Gallery images)</option>
+                    <option value="about/">About (Sandy's photos)</option>
+                    <option value="logo/">Logo</option>
+                    <option value="hero/">Hero Banner</option>
+                    <option value="placeholders/">Placeholders</option>
+                </select>
+            </div>
+
+            <div class="drop-zone" id="dropZone">
+                <div class="drop-zone-icon">🖼️</div>
+                <h3>Drag & Drop Images Here</h3>
+                <p>or click to browse files</p>
+                <p>Supported formats: JPG, PNG, SVG, WebP</p>
+                <label class="browse-btn">
+                    Browse Files
+                    <input type="file" class="file-input" id="fileInput" multiple accept="image/*">
+                </label>
+            </div>
+
+            <div class="upload-queue" id="uploadQueue" style="display: none;">
+                <h3>Upload Queue</h3>
+                <div id="queueList"></div>
+                <div class="upload-actions">
+                    <button class="btn btn-primary" id="uploadAllBtn" onclick="showUploadInstructions()">
+                        Upload All to Azure
+                    </button>
+                    <button class="btn btn-secondary" onclick="clearQueue()">Clear Queue</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="upload-section">
+            <h2>🔗 Generate Image URL</h2>
+            <p style="margin-bottom: 20px; color: var(--charcoal); opacity: 0.7;">
+                After uploading images via Azure Storage Explorer, enter the filename to get the full URL:
+            </p>
+            
+            <div class="folder-select">
+                <label for="urlFolder">Folder:</label>
+                <select id="urlFolder">
+                    <option value="artworks/">artworks/</option>
+                    <option value="about/">about/</option>
+                    <option value="logo/">logo/</option>
+                    <option value="hero/">hero/</option>
+                    <option value="placeholders/">placeholders/</option>
+                </select>
+            </div>
+            
+            <div class="folder-select">
+                <label for="fileName">Filename (e.g., my-painting.jpg):</label>
+                <input type="text" id="fileName" placeholder="Enter filename" style="width: 100%; padding: 12px 16px; border: 2px solid #e0d8d0; border-radius: 8px; font-size: 1rem;">
+            </div>
+            
+            <button class="btn btn-primary" onclick="generateUrl()" style="margin-top: 10px;">Generate URL</button>
+            
+            <div id="generatedUrl" style="display: none; margin-top: 20px; padding: 15px; background: #d4edda; border-radius: 8px;">
+                <strong>Image URL:</strong>
+                <code id="urlOutput" style="display: block; margin-top: 10px; padding: 10px; background: white; border-radius: 4px; word-break: break-all;"></code>
+                <button class="btn btn-secondary" onclick="copyGeneratedUrl()" style="margin-top: 10px;">Copy URL</button>
+            </div>
+        </div>
+
+        <div class="upload-section">
+            <h2>📋 Quick Reference</h2>
+            <p style="color: var(--charcoal); margin-bottom: 15px;">Base URL for all images:</p>
+            <code style="display: block; padding: 15px; background: white; border-radius: 8px; word-break: break-all;">
+                https://20260124sandiinlis.blob.core.windows.net/blobs/
+            </code>
+            
+            <p style="color: var(--charcoal); margin: 20px 0 15px;">Example URLs:</p>
+            <ul style="color: var(--charcoal); opacity: 0.8; line-height: 2;">
+                <li><code>https://20260124sandiinlis.blob.core.windows.net/blobs/artworks/painting1.jpg</code></li>
+                <li><code>https://20260124sandiinlis.blob.core.windows.net/blobs/about/sandy-studio.jpg</code></li>
+                <li><code>https://20260124sandiinlis.blob.core.windows.net/blobs/logo/logo.svg</code></li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="admin.html" class="btn btn-secondary">← Back to Admin</a>
+        </div>
+    </div>
+
+    <script src="js/azure-config.js"></script>
+    <script>
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const uploadQueue = document.getElementById('uploadQueue');
+        const queueList = document.getElementById('queueList');
+        let filesToUpload = [];
+
+        // Drag and drop handlers
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        dropZone.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', () => {
+            handleFiles(fileInput.files);
+        });
+
+        function handleFiles(files) {
+            for (let file of files) {
+                if (file.type.startsWith('image/')) {
+                    filesToUpload.push(file);
+                    addToQueue(file);
+                }
+            }
+            if (filesToUpload.length > 0) {
+                uploadQueue.style.display = 'block';
+            }
+        }
+
+        function addToQueue(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const item = document.createElement('div');
+                item.className = 'queue-item';
+                item.innerHTML = `
+                    <img src="${e.target.result}" class="queue-item-preview" alt="${file.name}">
+                    <div class="queue-item-info">
+                        <div class="queue-item-name">${file.name}</div>
+                        <div class="queue-item-size">${formatFileSize(file.size)}</div>
+                    </div>
+                    <span class="queue-item-status pending">Pending</span>
+                    <button class="queue-item-remove" onclick="removeFromQueue(this, '${file.name}')">×</button>
+                `;
+                queueList.appendChild(item);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+
+        function removeFromQueue(btn, fileName) {
+            const item = btn.closest('.queue-item');
+            item.remove();
+            filesToUpload = filesToUpload.filter(f => f.name !== fileName);
+            if (filesToUpload.length === 0) {
+                uploadQueue.style.display = 'none';
+            }
+        }
+
+        function clearQueue() {
+            queueList.innerHTML = '';
+            filesToUpload = [];
+            uploadQueue.style.display = 'none';
+        }
+
+        function showUploadInstructions() {
+            const folder = document.getElementById('folderSelect').value;
+            alert(`To upload these images to Azure:\n\n1. Open Azure Storage Explorer or VS Code Azure extension\n2. Navigate to: 20260124sandiinlis → blobs → ${folder}\n3. Upload the selected files\n4. The images will be available at:\n   https://20260124sandiinlis.blob.core.windows.net/blobs/${folder}<filename>\n\nAlternatively, use the Azure Portal to upload files.`);
+        }
+
+        function generateUrl() {
+            const folder = document.getElementById('urlFolder').value;
+            const filename = document.getElementById('fileName').value.trim();
+            
+            if (!filename) {
+                alert('Please enter a filename');
+                return;
+            }
+            
+            const url = `https://20260124sandiinlis.blob.core.windows.net/blobs/${folder}${filename}`;
+            document.getElementById('urlOutput').textContent = url;
+            document.getElementById('generatedUrl').style.display = 'block';
+        }
+
+        function copyGeneratedUrl() {
+            const url = document.getElementById('urlOutput').textContent;
+            navigator.clipboard.writeText(url).then(() => {
+                alert('URL copied to clipboard!');
+            });
+        }
+
+        // Mobile menu
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+            this.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

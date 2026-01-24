@@ -190,7 +190,10 @@ function renderGallery(artworks) {
     galleryGrid.innerHTML = artworks.map(artwork => `
         <div class="gallery-item" data-id="${artwork.id}" onclick="openModal(${artwork.id})">
             <div class="gallery-image">
-                <img src="${artwork.image}" alt="${artwork.title}" loading="lazy">
+                <img src="${artwork.image}" 
+                     alt="${artwork.title}" 
+                     loading="lazy"
+                     onerror="this.onerror=null; this.src='${artwork.localImage || artwork.image}';">
             </div>
             <div class="gallery-info">
                 <h3>${artwork.title}</h3>

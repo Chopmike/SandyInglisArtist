@@ -33,6 +33,13 @@ async function loadArtworkDetails(artworkId) {
         // Populate page with artwork data
         document.getElementById('artworkImage').src = artwork.image;
         document.getElementById('artworkImage').alt = artwork.title;
+        
+        // Add fallback for Azure images
+        document.getElementById('artworkImage').onerror = function() {
+            this.onerror = null;
+            this.src = artwork.localImage || artwork.image;
+        };
+        
         document.getElementById('artworkTitle').textContent = artwork.title;
         document.getElementById('artworkArtist').textContent = artwork.artist;
         document.getElementById('artworkYear').textContent = artwork.year;
