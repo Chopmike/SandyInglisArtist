@@ -9,14 +9,13 @@
 #
 # The processed images will be saved to a new folder called "web-ready"
 
-# Check if input folder provided
+# Use provided folder or default to Sandy's Mac location
 if [ -z "$1" ]; then
-    echo "❌ Please provide the folder path containing your images"
-    echo "Usage: bash process-images.sh /path/to/your/images"
-    exit 1
+    INPUT_DIR="/Users/sandyinglis/Desktop/ArtworkExport"
+    echo "ℹ️  No folder specified, using default: $INPUT_DIR"
+else
+    INPUT_DIR="$1"
 fi
-
-INPUT_DIR="$1"
 OUTPUT_DIR="${INPUT_DIR}/web-ready"
 
 # Create output directory
