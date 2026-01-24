@@ -2,7 +2,7 @@
 
 /* Contact Hero */
 .contact-hero {
-    background: linear-gradient(135deg, var(--ochre) 0%, var(--terracotta) 50%, var(--burnt-sienna) 100%);
+    background: linear-gradient(135deg, #4A6FA5 0%, #3B5998 50%, #2C4A7C 100%);
     padding: 120px 0 60px;
     text-align: center;
     color: white;
@@ -24,7 +24,7 @@
 /* Contact Main */
 .contact-main {
     padding: 60px 0;
-    background: var(--cream);
+    background: #5B7DB1;
 }
 
 .contact-wrapper {
