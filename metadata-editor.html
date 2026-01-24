@@ -414,7 +414,7 @@
                 artist: 'Sandy Inglis',
                 year: new Date().getFullYear(),
                 collection: '',
-                accolades: '',
+                keywords: '',
                 description: '',
                 image: AZURE_BASE_URL + 'image-name.jpg',
                 localImage: 'images/artworks/image-name.jpg',
@@ -470,28 +470,36 @@
                                 <label>Availability</label>
                                 <select class="availability-select" 
                                         onchange="updateField(${index}, 'availability', this.value)">
-                                    <option value="available" ${artwork.availability === 'available' ? 'selected' : ''}>✓ Available</option>
-                                    <option value="sold" ${artwork.availability === 'sold' ? 'selected' : ''}>✗ Sold</option>
-                                    <option value="commission-only" ${artwork.availability === 'commission-only' ? 'selected' : ''}>⚡ Commission Only</option>
+                                    <option value="available" ${artwork.availability === 'available' ? 'selected' : ''}>Available</option>
+                                    <option value="sold" ${artwork.availability === 'sold' ? 'selected' : ''}>Sold</option>
+                                    <option value="commission-only" ${artwork.availability === 'commission-only' ? 'selected' : ''}>Commission Only</option>
                                 </select>
                             </div>
                         </div>
                         
                         <div class="form-group">
                             <label>Collection</label>
-                            <select onchange="updateField(${index}, 'collection', this.value)">
-                                <option value="">-- Select Collection --</option>
-                                ${collections.map(c => `
-                                    <option value="${c}" ${artwork.collection === c ? 'selected' : ''}>${c}</option>
-                                `).join('')}
-                            </select>
+                            <div style="display: flex; gap: 8px;">
+                                <select style="flex: 1;" onchange="handleCollectionChange(${index}, this.value)">
+                                    <option value="">-- Select or Add New --</option>
+                                    <option value="__ADD_NEW__">+ Add New Collection...</option>
+                                    ${collections.map(c => `
+                                        <option value="${c}" ${artwork.collection === c ? 'selected' : ''}>${c}</option>
+                                    `).join('')}
+                                </select>
+                            </div>
+                            <input type="text" id="collection-display-${index}" value="${escapeHtml(artwork.collection || '')}" 
+                                   placeholder="Type collection name or select above"
+                                   style="margin-top: 8px;"
+                                   onchange="updateField(${index}, 'collection', this.value)">
                         </div>
                         
                         <div class="form-group">
-                            <label>Accolades</label>
-                            <input type="text" value="${escapeHtml(artwork.accolades || '')}" 
-                                   placeholder="e.g., Winner - Best Contemporary Art 2025"
-                                   onchange="updateField(${index}, 'accolades', this.value)">
+                            <label>Keywords / Categories</label>
+                            <input type="text" value="${escapeHtml(artwork.keywords || '')}" 
+                                   placeholder="e.g., Nudes, Places, Art Nouveau, Impressionist"
+                                   onchange="updateField(${index}, 'keywords', this.value)">
+                            <small style="color: #888; font-size: 0.8rem;">Comma-separated tags for search</small>
                         </div>
                         
                         <div class="form-group">
@@ -508,7 +516,7 @@
                         
                         <button class="btn btn-secondary" style="width: 100%; margin-top: 10px;"
                                 onclick="removeArtwork(${index})">
-                            🗑️ Remove
+                            Remove
                         </button>
                     </div>
                 </div>
@@ -518,6 +526,24 @@
         // Update field
         function updateField(index, field, value) {
             artworks[index][field] = value;
+        }
+
+        // Handle collection dropdown change
+        function handleCollectionChange(index, value) {
+            if (value === '__ADD_NEW__') {
+                const newCollection = prompt('Enter new collection name:');
+                if (newCollection && newCollection.trim()) {
+                    const trimmed = newCollection.trim();
+                    if (!collections.includes(trimmed)) {
+                        collections.push(trimmed);
+                    }
+                    artworks[index].collection = trimmed;
+                    renderArtworkCards();
+                }
+            } else {
+                artworks[index].collection = value;
+                document.getElementById(`collection-display-${index}`).value = value;
+            }
         }
 
         // Remove artwork
