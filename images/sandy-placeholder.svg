@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 600">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F5E6D3"/>
+      <stop offset="100%" style="stop-color:#E8D4C4"/>
+    </linearGradient>
+    <linearGradient id="ochreGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#CC7722"/>
+      <stop offset="100%" style="stop-color:#D2691E"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="500" height="600" fill="url(#bgGrad)"/>
+  
+  <!-- Studio wall texture -->
+  <rect x="0" y="0" width="500" height="400" fill="#E8DDD0"/>
+  
+  <!-- Window light effect -->
+  <rect x="350" y="50" width="120" height="180" fill="#FFF8E7" opacity="0.5"/>
+  <rect x="360" y="60" width="100" height="160" fill="none" stroke="#D4A017" stroke-width="3"/>
+  <line x1="410" y1="60" x2="410" y2="220" stroke="#D4A017" stroke-width="2"/>
+  <line x1="360" y1="140" x2="460" y2="140" stroke="#D4A017" stroke-width="2"/>
+  
+  <!-- Floor -->
+  <rect x="0" y="400" width="500" height="200" fill="#C9A882"/>
+  
+  <!-- Easel -->
+  <polygon points="200,150 280,150 290,420 190,420" fill="#8B4513"/>
+  <line x1="160" y1="420" x2="240" y2="180" stroke="#654321" stroke-width="8"/>
+  <line x1="320" y1="420" x2="240" y2="180" stroke="#654321" stroke-width="8"/>
+  <line x1="180" y1="340" x2="300" y2="340" stroke="#654321" stroke-width="6"/>
+  
+  <!-- Canvas on easel -->
+  <rect x="185" y="160" width="110" height="140" fill="white" stroke="#A0522D" stroke-width="4"/>
+  
+  <!-- Painting in progress - Aboriginal style -->
+  <circle cx="240" cy="210" r="25" fill="#C41E3A"/>
+  <circle cx="240" cy="210" r="18" fill="#CC7722"/>
+  <circle cx="240" cy="210" r="10" fill="#D4A017"/>
+  <circle cx="210" cy="260" r="4" fill="#E97451"/>
+  <circle cx="225" cy="265" r="4" fill="#E97451"/>
+  <circle cx="240" cy="270" r="4" fill="#E97451"/>
+  <circle cx="255" cy="265" r="4" fill="#E97451"/>
+  <circle cx="270" cy="260" r="4" fill="#E97451"/>
+  
+  <!-- Artist figure (Sandy) -->
+  <!-- Hair -->
+  <ellipse cx="120" cy="240" rx="45" ry="50" fill="#A0A0A0"/>
+  
+  <!-- Head -->
+  <ellipse cx="120" cy="250" rx="35" ry="40" fill="#E8C4A8"/>
+  
+  <!-- Body -->
+  <path d="M70,300 Q50,400 60,480 L180,480 Q190,400 170,300 Z" fill="#C41E3A"/>
+  
+  <!-- Arm reaching to canvas -->
+  <path d="M150,320 Q180,300 185,280" stroke="#E8C4A8" stroke-width="20" fill="none" stroke-linecap="round"/>
+  
+  <!-- Hand with brush -->
+  <circle cx="185" cy="275" r="10" fill="#E8C4A8"/>
+  <line x1="188" y1="270" x2="205" y2="255" stroke="#654321" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- Other arm -->
+  <path d="M90,320 Q60,380 80,430" stroke="#E8C4A8" stroke-width="18" fill="none" stroke-linecap="round"/>
+  
+  <!-- Palette -->
+  <ellipse cx="90" cy="400" rx="40" ry="25" fill="#8B4513"/>
+  <circle cx="75" cy="390" r="8" fill="#C41E3A"/>
+  <circle cx="95" cy="385" r="8" fill="#CC7722"/>
+  <circle cx="110" cy="395" r="8" fill="#D4A017"/>
+  <circle cx="85" cy="410" r="8" fill="#E97451"/>
+  
+  <!-- Face details -->
+  <circle cx="108" cy="245" r="3" fill="#36454F"/>
+  <circle cx="132" cy="245" r="3" fill="#36454F"/>
+  <path d="M110,265 Q120,275 130,265" stroke="#36454F" stroke-width="2" fill="none"/>
+  
+  <!-- Art supplies on floor -->
+  <rect x="320" y="450" width="80" height="60" fill="#654321" rx="5"/>
+  <rect x="330" y="440" width="15" height="30" fill="#C41E3A"/>
+  <rect x="350" y="445" width="15" height="25" fill="#CC7722"/>
+  <rect x="370" y="442" width="15" height="28" fill="#D4A017"/>
+  
+  <!-- Text placeholder -->
+  <rect x="50" y="530" width="400" height="50" fill="none"/>
+  <text x="250" y="560" font-family="Georgia, serif" font-size="18" fill="#36454F" text-anchor="middle" font-style="italic">Sandy Inglis at her easel</text>
+</svg>

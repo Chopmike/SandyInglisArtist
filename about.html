@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artwork Details - Sandy Inglis Artist</title>
-    <meta name="description" content="View artwork details from Sandy Inglis's contemporary art portfolio.">
+    <title>About Sandy Inglis - Contemporary Australian Artist</title>
+    <meta name="description" content="Learn about Sandy Inglis, a contemporary Australian artist born in London who migrated to Australia as a Ten Pound Pom.">
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/artwork.css">
+    <link rel="stylesheet" href="css/about.css">
 </head>
 <body>
     <!-- Header Navigation -->
@@ -20,7 +20,7 @@
             <ul class="nav-menu">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="index.html#gallery">Gallery</a></li>
-                <li><a href="about.html">About Sandy Inglis</a></li>
+                <li><a href="about.html" class="active">About Sandy Inglis</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
                 <li><a href="admin.html" class="admin-link">Admin</a></li>
             </ul>
@@ -32,44 +32,65 @@
         </nav>
     </header>
 
-    <!-- Artwork Detail Section -->
-    <main class="artwork-detail">
+    <!-- About Hero -->
+    <section class="about-hero">
         <div class="container">
-            <a href="index.html#gallery" class="back-link">← Back to Gallery</a>
-            
-            <div class="artwork-content">
-                <div class="artwork-image-container">
-                    <img id="artworkImage" src="" alt="" class="artwork-main-image">
+            <h1>About Sandy Inglis</h1>
+            <p class="about-hero-subtitle">A Journey from London to the Australian Outback</p>
+        </div>
+    </section>
+
+    <!-- Main About Content -->
+    <main class="about-main">
+        <div class="container">
+            <!-- Featured Image Section -->
+            <div class="about-featured">
+                <div class="about-featured-image">
+                    <img src="images/sandy-placeholder.svg" alt="Sandy Inglis at her easel in her Sydney studio">
+                    <p class="image-caption">Sandy Inglis in her studio, Sydney</p>
                 </div>
+            </div>
+
+            <!-- Biography Section -->
+            <div class="about-biography">
+                <h2>The Artist's Story</h2>
                 
-                <div class="artwork-info-container">
-                    <h1 id="artworkTitle"></h1>
-                    
-                    <div class="artwork-metadata">
-                        <div class="metadata-row">
-                            <span class="metadata-label">Artist:</span>
-                            <span id="artworkArtist" class="metadata-value"></span>
-                        </div>
-                        <div class="metadata-row">
-                            <span class="metadata-label">Year:</span>
-                            <span id="artworkYear" class="metadata-value"></span>
-                        </div>
-                        <div class="metadata-row">
-                            <span class="metadata-label">Collection:</span>
-                            <span id="artworkCollection" class="metadata-value"></span>
-                        </div>
-                        <div class="metadata-row accolades-row" id="accoladesRow" style="display: none;">
-                            <span class="metadata-label">Accolades:</span>
-                            <span id="artworkAccolades" class="metadata-value accolades-text"></span>
-                        </div>
+                <p class="lead-paragraph">Sandy Inglis is a contemporary Australian artist whose vibrant works are deeply influenced by her remarkable journey from the streets of London to the sun-drenched landscapes of Australia.</p>
+
+                <p>Born in London in 1956, Sandy grew up surrounded by the rich artistic heritage of Britain's capital. She developed an early passion for art, spending countless hours sketching in the galleries of the Tate and the National Portrait Gallery. However, it was the promise of adventure and a new life that would ultimately shape her artistic destiny.</p>
+
+                <p>In 1974, at just 18 years old, Sandy made the bold decision to migrate to Australia as part of the Assisted Passage Migration Scheme—affectionately known as the "Ten Pound Pom" programme. Armed with little more than a suitcase, her art supplies, and an unwavering sense of adventure, she embarked on the six-week voyage to the other side of the world.</p>
+
+                <div class="about-gallery">
+                    <div class="about-gallery-item">
+                        <img src="images/sandy-placeholder-2.svg" alt="Sandy Inglis painting outdoors in the Australian bush">
+                        <p class="image-caption">Painting en plein air in the Blue Mountains</p>
                     </div>
-                    
-                    <div class="artwork-description" id="artworkDescription"></div>
-                    
-                    <div class="artwork-actions">
-                        <a href="index.html#contact" class="btn btn-primary">Enquire About This Piece</a>
-                        <a href="index.html#gallery" class="btn btn-secondary">View More Artworks</a>
+                    <div class="about-gallery-item">
+                        <img src="images/sandy-placeholder-3.svg" alt="Sandy Inglis with one of her award-winning paintings">
+                        <p class="image-caption">With her award-winning piece "Outback Sunrise"</p>
                     </div>
+                </div>
+
+                <p>The Australian landscape was a revelation. The intense ochres of the outback, the burnt siennas of the red centre, and the endless azure skies ignited something profound in Sandy's artistic soul. She immersed herself in the colours and textures of her new homeland, developing a distinctive style that celebrates the raw beauty of the Australian bush.</p>
+
+                <p>Over five decades, Sandy has called Australia home, settling in Sydney where she maintains her studio overlooking the harbour. Her work has been exhibited in galleries across New South Wales and has earned numerous accolades, including multiple awards for her contemporary interpretations of Australian landscapes.</p>
+
+                <p>Today, Sandy continues to paint with the same passion and curiosity that brought her to these shores over fifty years ago. Her work is held in private collections throughout Australia and internationally, and she remains committed to capturing the spirit of the land she has come to love so deeply.</p>
+
+                <blockquote class="artist-quote">
+                    "When I first saw the Australian outback, I knew I had found my true palette. The ochres, the terracottas, the burnt oranges—these colours speak to something ancient and timeless. They became my artistic language."
+                    <cite>— Sandy Inglis</cite>
+                </blockquote>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="about-cta">
+                <h3>Explore Sandy's Work</h3>
+                <p>Discover the vibrant collection of paintings inspired by the Australian landscape.</p>
+                <div class="cta-buttons">
+                    <a href="index.html#gallery" class="btn btn-primary">View Gallery</a>
+                    <a href="index.html#contact" class="btn btn-secondary">Get in Touch</a>
                 </div>
             </div>
         </div>
@@ -90,7 +111,7 @@
                     <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="index.html#gallery">Gallery</a></li>
-                        <li><a href="index.html#about">About Sandy Inglis</a></li>
+                        <li><a href="about.html">About Sandy Inglis</a></li>
                         <li><a href="index.html#contact">Contact</a></li>
                         <li><a href="admin.html">Admin</a></li>
                     </ul>
@@ -130,6 +151,6 @@
         </div>
     </footer>
 
-    <script src="js/artwork.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

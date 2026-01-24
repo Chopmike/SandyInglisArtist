@@ -1,0 +1,217 @@
+/* About Page Styles */
+
+/* About Hero */
+.about-hero {
+    background: linear-gradient(135deg, var(--ochre) 0%, var(--terracotta) 50%, var(--burnt-sienna) 100%);
+    padding: 120px 0 60px;
+    text-align: center;
+    color: white;
+}
+
+.about-hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+}
+
+.about-hero-subtitle {
+    font-size: 1.3rem;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+/* Main About Content */
+.about-main {
+    padding: 60px 0;
+    background: var(--cream);
+}
+
+/* Featured Image */
+.about-featured {
+    margin-bottom: 50px;
+}
+
+.about-featured-image {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-featured-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.image-caption {
+    margin-top: 15px;
+    font-style: italic;
+    color: var(--charcoal);
+    opacity: 0.7;
+    font-size: 0.95rem;
+}
+
+/* Biography Section */
+.about-biography {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.about-biography h2 {
+    color: var(--vibrant-red);
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: 400;
+}
+
+.about-biography p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--charcoal);
+    margin-bottom: 1.5rem;
+    text-align: justify;
+}
+
+.lead-paragraph {
+    font-size: 1.25rem !important;
+    font-weight: 500;
+    color: var(--terracotta) !important;
+    text-align: center !important;
+    margin-bottom: 2rem !important;
+}
+
+/* About Gallery (inline images) */
+.about-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin: 40px 0;
+}
+
+.about-gallery-item {
+    text-align: center;
+}
+
+.about-gallery-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.about-gallery-item img:hover {
+    transform: scale(1.02);
+}
+
+.about-gallery-item .image-caption {
+    margin-top: 10px;
+}
+
+/* Artist Quote */
+.artist-quote {
+    background: linear-gradient(135deg, var(--ochre) 0%, var(--terracotta) 100%);
+    color: white;
+    padding: 40px;
+    border-radius: 8px;
+    margin: 40px 0;
+    font-size: 1.3rem;
+    font-style: italic;
+    line-height: 1.6;
+    text-align: center;
+    position: relative;
+}
+
+.artist-quote::before {
+    content: '"';
+    font-size: 4rem;
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    opacity: 0.3;
+    font-family: Georgia, serif;
+}
+
+.artist-quote cite {
+    display: block;
+    margin-top: 20px;
+    font-size: 1rem;
+    font-style: normal;
+    opacity: 0.9;
+}
+
+/* Call to Action */
+.about-cta {
+    text-align: center;
+    padding: 50px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    margin-top: 50px;
+}
+
+.about-cta h3 {
+    color: var(--vibrant-red);
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    font-weight: 400;
+}
+
+.about-cta p {
+    color: var(--charcoal);
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .about-hero {
+        padding: 100px 0 40px;
+    }
+    
+    .about-hero h1 {
+        font-size: 2.2rem;
+    }
+    
+    .about-hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .about-gallery {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-gallery-item img {
+        height: 200px;
+    }
+    
+    .artist-quote {
+        padding: 30px 20px;
+        font-size: 1.1rem;
+    }
+    
+    .artist-quote::before {
+        font-size: 3rem;
+        top: 5px;
+        left: 10px;
+    }
+    
+    .about-biography p {
+        text-align: left;
+    }
+    
+    .about-cta {
+        padding: 30px 20px;
+    }
+}
