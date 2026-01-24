@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artwork Metadata Editor - Sandy Inglis Artist</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+            background: #f5f0eb;
+            min-height: 100vh;
+        }
+        
+        .editor-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 20px 40px;
+        }
+        
+        .editor-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .editor-header h1 {
+            color: var(--vibrant-red);
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .editor-header p {
+            color: var(--charcoal);
+            opacity: 0.7;
+        }
+        
+        .load-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+        
+        .load-section h2 {
+            color: var(--charcoal);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+        
+        .load-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: var(--ochre);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--terracotta);
+        }
+        
+        .btn-secondary {
+            background: #e0d8d0;
+            color: var(--charcoal);
+        }
+        
+        .btn-secondary:hover {
+            background: #d0c8c0;
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #218838;
+        }
+        
+        .artwork-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .artwork-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .artwork-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .artwork-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: #f5f0eb;
+        }
+        
+        .artwork-form {
+            padding: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--charcoal);
+            font-size: 0.9rem;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #e0d8d0;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--ochre);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .availability-select {
+            padding: 10px 12px;
+        }
+        
+        .availability-select option[value="available"] {
+            color: #155724;
+        }
+        
+        .availability-select option[value="sold"] {
+            color: #721c24;
+        }
+        
+        .card-id {
+            background: var(--ochre);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .output-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-top: 40px;
+        }
+        
+        .output-section h2 {
+            color: var(--charcoal);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+        
+        .json-output {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            font-size: 0.85rem;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .output-actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .info-box {
+            background: #e7f3ff;
+            border: 1px solid #b8daff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .info-box h3 {
+            color: #004085;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .info-box p, .info-box li {
+            color: #004085;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .info-box ol {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .status-badge.available {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-badge.sold {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 12px;
+            color: var(--charcoal);
+        }
+        
+        .empty-state h3 {
+            margin-bottom: 15px;
+            color: var(--vibrant-red);
+        }
+        
+        /* Header override */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .artwork-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/logo-placeholder.svg" alt="Sandy Inglis Artist" class="logo-image">
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#gallery">Gallery</a></li>
+                <li><a href="about.html">About Sandy Inglis</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="admin.html" class="active admin-link">Admin</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <div class="editor-container">
+        <div class="editor-header">
+            <h1>🎨 Artwork Metadata Editor</h1>
+            <p>Edit titles, descriptions, collections, and availability for all artworks</p>
+        </div>
+
+        <div class="info-box">
+            <h3>📋 How to use this editor</h3>
+            <ol>
+                <li><strong>Load current data</strong> - Click "Load from artworks.json" to edit existing entries</li>
+                <li><strong>Edit fields</strong> - Update titles, descriptions, collections, year, and availability</li>
+                <li><strong>Generate JSON</strong> - Click "Generate Updated JSON" when done</li>
+                <li><strong>Copy & Save</strong> - Copy the JSON and paste it into <code>data/artworks.json</code></li>
+            </ol>
+        </div>
+
+        <div class="load-section">
+            <h2>📂 Load Artwork Data</h2>
+            <div class="load-buttons">
+                <button class="btn btn-primary" onclick="loadFromFile()">
+                    📥 Load from artworks.json
+                </button>
+                <button class="btn btn-secondary" onclick="addNewArtwork()">
+                    ➕ Add New Artwork
+                </button>
+                <button class="btn btn-secondary" onclick="clearAll()">
+                    🗑️ Clear All
+                </button>
+            </div>
+        </div>
+
+        <div id="artworkGrid" class="artwork-grid">
+            <div class="empty-state">
+                <h3>No artworks loaded</h3>
+                <p>Click "Load from artworks.json" to start editing, or "Add New Artwork" to create entries.</p>
+            </div>
+        </div>
+
+        <div class="output-section">
+            <h2>📄 Generated JSON</h2>
+            <div class="output-actions" style="margin-bottom: 20px;">
+                <button class="btn btn-success" onclick="generateJSON()">
+                    ⚡ Generate Updated JSON
+                </button>
+                <button class="btn btn-primary" onclick="copyJSON()">
+                    📋 Copy to Clipboard
+                </button>
+                <button class="btn btn-secondary" onclick="downloadJSON()">
+                    💾 Download as File
+                </button>
+            </div>
+            <pre class="json-output" id="jsonOutput">Click "Generate Updated JSON" to see the output...</pre>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="admin.html" class="btn btn-secondary">← Back to Admin</a>
+        </div>
+    </div>
+
+    <script>
+        let artworks = [];
+        const AZURE_BASE_URL = 'https://20260124sandiinlis.blob.core.windows.net/blobs/artworks/';
+        
+        // Collection options for dropdown
+        const collections = [
+            'Australian Landscapes',
+            'Dreamtime Series',
+            'Spiritual Collection',
+            'Contemporary Collection',
+            'Portrait Series',
+            'Abstract Collection',
+            'Coastal Series',
+            'Outback Collection'
+        ];
+
+        // Load from artworks.json
+        async function loadFromFile() {
+            try {
+                const response = await fetch('data/artworks.json');
+                artworks = await response.json();
+                renderArtworkCards();
+            } catch (error) {
+                alert('Error loading artworks.json: ' + error.message);
+            }
+        }
+
+        // Add new artwork entry
+        function addNewArtwork() {
+            const newId = artworks.length > 0 ? Math.max(...artworks.map(a => a.id)) + 1 : 1;
+            artworks.push({
+                id: newId,
+                title: 'New Artwork',
+                artist: 'Sandy Inglis',
+                year: new Date().getFullYear(),
+                collection: '',
+                accolades: '',
+                description: '',
+                image: AZURE_BASE_URL + 'image-name.jpg',
+                localImage: 'images/artworks/image-name.jpg',
+                availability: 'available'
+            });
+            renderArtworkCards();
+        }
+
+        // Clear all
+        function clearAll() {
+            if (confirm('Are you sure you want to clear all artworks?')) {
+                artworks = [];
+                renderArtworkCards();
+            }
+        }
+
+        // Render artwork cards
+        function renderArtworkCards() {
+            const grid = document.getElementById('artworkGrid');
+            
+            if (artworks.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No artworks loaded</h3>
+                        <p>Click "Load from artworks.json" to start editing, or "Add New Artwork" to create entries.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            grid.innerHTML = artworks.map((artwork, index) => `
+                <div class="artwork-card" data-index="${index}">
+                    <img src="${artwork.image}" 
+                         alt="${artwork.title}" 
+                         class="artwork-image"
+                         onerror="this.src='${artwork.localImage || 'images/artworks/placeholder-1.svg'}'">
+                    <div class="artwork-form">
+                        <span class="card-id">ID: ${artwork.id}</span>
+                        
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" value="${escapeHtml(artwork.title)}" 
+                                   onchange="updateField(${index}, 'title', this.value)">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Year</label>
+                                <input type="number" value="${artwork.year}" 
+                                       onchange="updateField(${index}, 'year', parseInt(this.value))">
+                            </div>
+                            <div class="form-group">
+                                <label>Availability</label>
+                                <select class="availability-select" 
+                                        onchange="updateField(${index}, 'availability', this.value)">
+                                    <option value="available" ${artwork.availability === 'available' ? 'selected' : ''}>✓ Available</option>
+                                    <option value="sold" ${artwork.availability === 'sold' ? 'selected' : ''}>✗ Sold</option>
+                                    <option value="commission-only" ${artwork.availability === 'commission-only' ? 'selected' : ''}>⚡ Commission Only</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Collection</label>
+                            <select onchange="updateField(${index}, 'collection', this.value)">
+                                <option value="">-- Select Collection --</option>
+                                ${collections.map(c => `
+                                    <option value="${c}" ${artwork.collection === c ? 'selected' : ''}>${c}</option>
+                                `).join('')}
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Accolades</label>
+                            <input type="text" value="${escapeHtml(artwork.accolades || '')}" 
+                                   placeholder="e.g., Winner - Best Contemporary Art 2025"
+                                   onchange="updateField(${index}, 'accolades', this.value)">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea placeholder="Medium, size, framing details, story behind the work..."
+                                      onchange="updateField(${index}, 'description', this.value)">${escapeHtml(artwork.description || '')}</textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Image URL (Azure Blob)</label>
+                            <input type="text" value="${escapeHtml(artwork.image)}" 
+                                   onchange="updateField(${index}, 'image', this.value)">
+                        </div>
+                        
+                        <button class="btn btn-secondary" style="width: 100%; margin-top: 10px;"
+                                onclick="removeArtwork(${index})">
+                            🗑️ Remove
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Update field
+        function updateField(index, field, value) {
+            artworks[index][field] = value;
+        }
+
+        // Remove artwork
+        function removeArtwork(index) {
+            if (confirm('Are you sure you want to remove this artwork?')) {
+                artworks.splice(index, 1);
+                renderArtworkCards();
+            }
+        }
+
+        // Escape HTML
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Generate JSON
+        function generateJSON() {
+            const json = JSON.stringify(artworks, null, 2);
+            document.getElementById('jsonOutput').textContent = json;
+        }
+
+        // Copy JSON
+        function copyJSON() {
+            const json = JSON.stringify(artworks, null, 2);
+            navigator.clipboard.writeText(json).then(() => {
+                alert('✅ JSON copied to clipboard!\n\nNow paste it into data/artworks.json');
+            });
+        }
+
+        // Download JSON
+        function downloadJSON() {
+            const json = JSON.stringify(artworks, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'artworks.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Mobile menu
+        document.querySelector('.hamburger')?.addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+            this.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
