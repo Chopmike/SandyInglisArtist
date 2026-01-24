@@ -1,3 +1,6 @@
+// Store current artwork globally for email function
+let currentArtwork = null;
+
 // Load artwork details from URL parameter
 document.addEventListener('DOMContentLoaded', async () => {
     // Get artwork ID from URL
@@ -29,6 +32,9 @@ async function loadArtworkDetails(artworkId) {
             window.location.href = 'index.html#gallery';
             return;
         }
+        
+        // Store artwork globally for email function
+        currentArtwork = artwork;
         
         // Populate page with artwork data
         document.getElementById('artworkImage').src = artwork.image;
@@ -116,4 +122,31 @@ function initNavigation() {
             navMenu.classList.remove('active');
         });
     });
+}
+
+// Send enquiry email with artwork details
+function sendEnquiryEmail() {
+    if (!currentArtwork) return;
+    
+    const email = 'sandy@chasedesign.com.au';
+    const subject = `Enquiry: ${currentArtwork.title}`;
+    
+    // Build email body with artwork details
+    let body = `Hi Sandy,\n\n`;
+    body += `I'm interested in your "${currentArtwork.title}" artwork.\n\n`;
+    body += `Artwork Details:\n`;
+    body += `- Title: ${currentArtwork.title}\n`;
+    body += `- Year: ${currentArtwork.year}\n`;
+    if (currentArtwork.collection) {
+        body += `- Collection: ${currentArtwork.collection}\n`;
+    }
+    if (currentArtwork.description) {
+        body += `- Description: ${currentArtwork.description}\n`;
+    }
+    body += `\nPlease contact me to discuss.\n\n`;
+    body += `Kind regards,\n[Your Name]`;
+    
+    // Create mailto link
+    const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoLink;
 }

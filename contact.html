@@ -115,7 +115,7 @@
                             </div>
                             <div class="contact-details">
                                 <h4>Email</h4>
-                                <a href="mailto:sandy@chasedesign.com">sandy@chasedesign.com</a>
+                                <a href="mailto:sandy@chasedesign.com.au">sandy@chasedesign.com.au</a>
                             </div>
                         </div>
 
@@ -199,7 +199,7 @@
                 <div class="footer-column">
                     <h3>Contact</h3>
                     <ul class="contact-info">
-                        <li>Email: <a href="mailto:sandy@chasedesign.com">sandy@chasedesign.com</a></li>
+                        <li>Email: <a href="mailto:sandy@chasedesign.com.au">sandy@chasedesign.com.au</a></li>
                         <li>Phone: <a href="tel:+61419488626">0419 488 626</a></li>
                         <li>Location: Sydney, Australia</li>
                     </ul>
@@ -257,10 +257,10 @@
             const enquiryType = document.getElementById('enquiryType').value;
             const message = document.getElementById('message').value;
             
-            const mailtoLink = `mailto:sandy@chasedesign.com?subject=Website Enquiry: ${enquiryType}&body=Name: ${name}%0AEmail: ${email}%0A%0A${message}`;
+            const mailtoLink = `mailto:sandy@chasedesign.com.au?subject=Website Enquiry: ${enquiryType}&body=Name: ${name}%0AEmail: ${email}%0A%0A${message}`;
             
-            // Optionally open email client
-            // window.location.href = mailtoLink;
+            // Open email client
+            window.location.href = mailtoLink;
         });
 
         // Mobile menu toggle
