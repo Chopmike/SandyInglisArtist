@@ -334,16 +334,16 @@
         </div>
 
         <div class="load-section">
-            <h2>📂 Load Artwork Data</h2>
+            <h2>Load Artwork Data</h2>
             <div class="load-buttons">
                 <button class="btn btn-primary" onclick="loadFromFile()">
-                    📥 Load from artworks.json
+                    LOAD FROM ARTWORKS.JSON
                 </button>
                 <button class="btn btn-secondary" onclick="addNewArtwork()">
-                    ➕ Add New Artwork
+                    + ADD NEW ARTWORK
                 </button>
                 <button class="btn btn-secondary" onclick="clearAll()">
-                    🗑️ Clear All
+                    CLEAR ALL
                 </button>
             </div>
         </div>
@@ -359,13 +359,13 @@
             <h2>📄 Generated JSON</h2>
             <div class="output-actions" style="margin-bottom: 20px;">
                 <button class="btn btn-success" onclick="generateJSON()">
-                    ⚡ Generate Updated JSON
+                    GENERATE UPDATED JSON
                 </button>
                 <button class="btn btn-primary" onclick="copyJSON()">
-                    📋 Copy to Clipboard
+                    COPY TO CLIPBOARD
                 </button>
                 <button class="btn btn-secondary" onclick="downloadJSON()">
-                    💾 Download as File
+                    DOWNLOAD AS FILE
                 </button>
             </div>
             <pre class="json-output" id="jsonOutput">Click "Generate Updated JSON" to see the output...</pre>
@@ -382,14 +382,16 @@
         
         // Collection options for dropdown
         const collections = [
+            'Uncategorised',
+            'Bubbles Series',
+            'Portraits',
+            'Travel',
             'Australian Landscapes',
-            'Dreamtime Series',
-            'Spiritual Collection',
-            'Contemporary Collection',
-            'Portrait Series',
             'Abstract Collection',
             'Coastal Series',
-            'Outback Collection'
+            'Outback Collection',
+            'Contemporary Collection',
+            'Still Life'
         ];
 
         // Load from artworks.json
