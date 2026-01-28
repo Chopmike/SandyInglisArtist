@@ -207,7 +207,7 @@ ul {
     align-items: center;
     justify-content: center;
     text-align: center;
-    background: linear-gradient(135deg, var(--deep-red) 0%, var(--primary-red) 25%, var(--burnt-orange) 50%, var(--ochre-yellow) 75%, var(--terracotta) 100%);
+    background-image: url('https://20260124sandiinlis.blob.core.windows.net/blobs/hero/website%20home%20header.jpg');
     background-size: cover;
     background-position: center;
     overflow: hidden;
