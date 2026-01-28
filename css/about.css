@@ -2,51 +2,23 @@
 
 /* About Hero */
 .about-hero {
-    background-image: url('https://20260124sandiinlis.blob.core.windows.net/blobs/hero/sydney_skyline_artist_sydney.JPG');
-    background-size: cover;
-    background-position: center;
+    background: linear-gradient(135deg, var(--ochre) 0%, var(--terracotta) 50%, var(--burnt-sienna) 100%);
     padding: 120px 0 60px;
     text-align: center;
     color: white;
-    position: relative;
-}
-
-.about-hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.3);
-}
-
-.about-hero .container {
-    position: relative;
-    z-index: 1;
 }
 
 .about-hero h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    font-weight: 400;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    font-weight: 300;
     letter-spacing: 2px;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-    display: inline-block;
-    background: rgba(0, 0, 0, 0.4);
-    padding: 0.5rem 1.5rem;
-    border-radius: 6px;
 }
 
 .about-hero-subtitle {
-    font-size: 1.1rem;
-    opacity: 0.95;
+    font-size: 1.3rem;
+    opacity: 0.9;
     font-weight: 300;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-    display: inline-block;
-    background: rgba(0, 0, 0, 0.4);
-    padding: 0.3rem 1rem;
-    border-radius: 4px;
 }
 
 /* Main About Content */
