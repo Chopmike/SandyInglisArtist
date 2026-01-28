@@ -242,6 +242,21 @@
             }
         });
 
+        // Pre-fill form if coming from artwork page
+        const urlParams = new URLSearchParams(window.location.search);
+        const artworkName = urlParams.get('artwork');
+        const enquiryType = urlParams.get('type');
+        
+        if (artworkName) {
+            document.getElementById('artworkReference').value = artworkName;
+            document.getElementById('artworkReferenceGroup').style.display = 'block';
+            document.getElementById('message').value = `Hi Sandy,\n\nI'm interested in your "${artworkName}" artwork.\n\nPlease contact me to discuss.\n\nKind regards,`;
+        }
+        
+        if (enquiryType) {
+            document.getElementById('enquiryType').value = enquiryType;
+        }
+
         // Form submission handling (for demo - replace with actual form service)
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -254,10 +269,16 @@
             // For now, we'll also open the email client as a fallback
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
-            const enquiryType = document.getElementById('enquiryType').value;
+            const enquiryTypeVal = document.getElementById('enquiryType').value;
+            const artworkRef = document.getElementById('artworkReference').value;
             const message = document.getElementById('message').value;
             
-            const mailtoLink = `mailto:sandy@chasedesign.com.au?subject=Website Enquiry: ${enquiryType}&body=Name: ${name}%0AEmail: ${email}%0A%0A${message}`;
+            let subject = `Website Enquiry: ${enquiryTypeVal}`;
+            if (artworkRef) {
+                subject = `Enquiry about "${artworkRef}"`;
+            }
+            
+            const mailtoLink = `mailto:sandy@chasedesign.com.au?subject=${encodeURIComponent(subject)}&body=Name: ${encodeURIComponent(name)}%0AEmail: ${encodeURIComponent(email)}%0AArtwork: ${encodeURIComponent(artworkRef)}%0A%0A${encodeURIComponent(message)}`;
             
             // Open email client
             window.location.href = mailtoLink;

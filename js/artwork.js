@@ -81,7 +81,7 @@ async function loadArtworkDetails(artworkId) {
             soldCard.style.display = 'none';
         }
         
-        // Update enquiry link with artwork title
+        // Update enquiry link to go to contact form with artwork details
         const enquireLink = document.getElementById('enquireLink');
         if (enquireLink) {
             enquireLink.href = `contact.html?artwork=${encodeURIComponent(artwork.title)}&type=enquire-artwork`;
