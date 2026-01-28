@@ -1,11 +1,33 @@
 /* Contact Page Styles */
 
-/* Contact Hero */
+/* Contact Hero - Banner Style */
 .contact-hero {
-    background: linear-gradient(135deg, #4A6FA5 0%, #3B5998 50%, #2C4A7C 100%);
-    padding: 120px 0 60px;
+    height: 300px;
+    background-image: url('https://20260124sandiinlis.blob.core.windows.net/blobs/hero/sydney_skyline_artist_sydney.JPG');
+    background-size: cover;
+    background-position: center 30%;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: 70px;
+}
+
+.contact-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.contact-hero .container {
+    position: relative;
+    z-index: 1;
     text-align: center;
-    color: white;
 }
 
 .contact-hero h1 {
@@ -13,12 +35,15 @@
     margin-bottom: 1rem;
     font-weight: 300;
     letter-spacing: 2px;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .contact-hero-subtitle {
     font-size: 1.3rem;
-    opacity: 0.9;
+    color: white;
     font-weight: 300;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 /* Contact Main */
