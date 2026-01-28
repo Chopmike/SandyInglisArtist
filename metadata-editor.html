@@ -416,6 +416,7 @@
                 collection: '',
                 keywords: '',
                 description: '',
+                adminNotes: '',
                 image: AZURE_BASE_URL + 'image-name.jpg',
                 localImage: 'images/artworks/image-name.jpg',
                 availability: 'available'
@@ -506,6 +507,13 @@
                             <label>Description</label>
                             <textarea placeholder="Medium, size, framing details, story behind the work..."
                                       onchange="updateField(${index}, 'description', this.value)">${escapeHtml(artwork.description || '')}</textarea>
+                        </div>
+                        
+                        <div class="form-group" style="background: #fff8e1; padding: 12px; border-radius: 6px; border-left: 4px solid #ffc107;">
+                            <label style="color: #856404;">Admin Notes (not shown on website)</label>
+                            <textarea placeholder="Internal notes - e.g., location, photo source, to-do items..."
+                                      style="background: #fffef5;"
+                                      onchange="updateField(${index}, 'adminNotes', this.value)">${escapeHtml(artwork.adminNotes || '')}</textarea>
                         </div>
                         
                         <div class="form-group">
