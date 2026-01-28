@@ -205,7 +205,7 @@ ul {
     min-height: 250px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     text-align: center;
     background-image: url('https://20260124sandiinlis.blob.core.windows.net/blobs/hero/Website%20Home%20Header.jpg');
     background-size: cover;
@@ -239,19 +239,22 @@ ul {
     position: relative;
     z-index: 10;
     color: var(--white);
-    max-width: 800px;
-    padding: 0 2rem;
+    max-width: 400px;
+    padding: 1.5rem 2rem;
+    margin-right: 8%;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
 }
 
 .hero-content h1 {
     color: var(--white);
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     margin-bottom: 0.5rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 .hero-subtitle {
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin-bottom: 1rem;
     font-weight: 300;
     letter-spacing: 2px;
