@@ -65,19 +65,6 @@
     "availability": "available"
   },
   {
-    "id": 6,
-    "title": "Holiday Bubbles 2",
-    "artist": "Sandy Inglis",
-    "year": 2025,
-    "collection": "Bubbles Series",
-    "medium": "",
-    "dimensions": "",
-    "description": "",
-    "image": "https://20260124sandiinlis.blob.core.windows.net/blobs/artworks/sandyinglis_HolidayBubbles2.jpeg",
-    "localImage": "images/artworks/sandyinglis_HolidayBubbles2.jpeg",
-    "availability": "available"
-  },
-  {
     "id": 7,
     "title": "Croatia",
     "artist": "Sandy Inglis",
@@ -130,19 +117,6 @@
     "availability": "available"
   },
   {
-    "id": 11,
-    "title": "Artwork 11",
-    "artist": "Sandy Inglis",
-    "year": 2025,
-    "collection": "Uncategorised",
-    "medium": "",
-    "dimensions": "",
-    "description": "",
-    "image": "https://20260124sandiinlis.blob.core.windows.net/blobs/artworks/DE12BFF1-815B-4082-A5F8-8C9D716FD755.jpeg",
-    "localImage": "images/artworks/DE12BFF1-815B-4082-A5F8-8C9D716FD755.jpeg",
-    "availability": "available"
-  },
-  {
     "id": 12,
     "title": "Artwork 12",
     "artist": "Sandy Inglis",
@@ -179,32 +153,6 @@
     "description": "",
     "image": "https://20260124sandiinlis.blob.core.windows.net/blobs/artworks/IMG_0325.jpeg",
     "localImage": "images/artworks/IMG_0325.jpeg",
-    "availability": "available"
-  },
-  {
-    "id": 15,
-    "title": "Artwork 15",
-    "artist": "Sandy Inglis",
-    "year": 2025,
-    "collection": "Uncategorised",
-    "medium": "",
-    "dimensions": "",
-    "description": "",
-    "image": "https://20260124sandiinlis.blob.core.windows.net/blobs/artworks/IMG_1313.jpeg",
-    "localImage": "images/artworks/IMG_1313.jpeg",
-    "availability": "available"
-  },
-  {
-    "id": 16,
-    "title": "Artwork 16",
-    "artist": "Sandy Inglis",
-    "year": 2025,
-    "collection": "Uncategorised",
-    "medium": "",
-    "dimensions": "",
-    "description": "",
-    "image": "https://20260124sandiinlis.blob.core.windows.net/blobs/artworks/IMG_1319.jpeg",
-    "localImage": "images/artworks/IMG_1319.jpeg",
     "availability": "available"
   },
   {
@@ -286,32 +234,6 @@
     "availability": "available"
   },
   {
-    "id": 23,
-    "title": "Artwork 23",
-    "artist": "Sandy Inglis",
-    "year": 2025,
-    "collection": "Uncategorised",
-    "medium": "",
-    "dimensions": "",
-    "description": "",
-    "image": "https://20260124sandiinlis.blob.core.windows.net/blobs/artworks/IMG_2860.jpeg",
-    "localImage": "images/artworks/IMG_2860.jpeg",
-    "availability": "available"
-  },
-  {
-    "id": 24,
-    "title": "Artwork 24",
-    "artist": "Sandy Inglis",
-    "year": 2025,
-    "collection": "Uncategorised",
-    "medium": "",
-    "dimensions": "",
-    "description": "",
-    "image": "https://20260124sandiinlis.blob.core.windows.net/blobs/artworks/IMG_2863.jpeg",
-    "localImage": "images/artworks/IMG_2863.jpeg",
-    "availability": "available"
-  },
-  {
     "id": 25,
     "title": "Artwork 25",
     "artist": "Sandy Inglis",
@@ -322,32 +244,6 @@
     "description": "",
     "image": "https://20260124sandiinlis.blob.core.windows.net/blobs/artworks/IMG_2881.jpeg",
     "localImage": "images/artworks/IMG_2881.jpeg",
-    "availability": "available"
-  },
-  {
-    "id": 26,
-    "title": "Artwork 26",
-    "artist": "Sandy Inglis",
-    "year": 2025,
-    "collection": "Uncategorised",
-    "medium": "",
-    "dimensions": "",
-    "description": "",
-    "image": "https://20260124sandiinlis.blob.core.windows.net/blobs/artworks/IMG_2951.jpeg",
-    "localImage": "images/artworks/IMG_2951.jpeg",
-    "availability": "available"
-  },
-  {
-    "id": 27,
-    "title": "Artwork 27",
-    "artist": "Sandy Inglis",
-    "year": 2025,
-    "collection": "Uncategorised",
-    "medium": "",
-    "dimensions": "",
-    "description": "",
-    "image": "https://20260124sandiinlis.blob.core.windows.net/blobs/artworks/IMG_2954.jpeg",
-    "localImage": "images/artworks/IMG_2954.jpeg",
     "availability": "available"
   },
   {
@@ -400,19 +296,6 @@
     "description": "",
     "image": "https://20260124sandiinlis.blob.core.windows.net/blobs/artworks/IMG_3120.jpeg",
     "localImage": "images/artworks/IMG_3120.jpeg",
-    "availability": "available"
-  },
-  {
-    "id": 32,
-    "title": "Artwork 32",
-    "artist": "Sandy Inglis",
-    "year": 2025,
-    "collection": "Uncategorised",
-    "medium": "",
-    "dimensions": "",
-    "description": "",
-    "image": "https://20260124sandiinlis.blob.core.windows.net/blobs/artworks/IMG_3121.jpeg",
-    "localImage": "images/artworks/IMG_3121.jpeg",
     "availability": "available"
   },
   {
@@ -507,19 +390,6 @@
     "availability": "available"
   },
   {
-    "id": 40,
-    "title": "Artwork 40",
-    "artist": "Sandy Inglis",
-    "year": 2025,
-    "collection": "Uncategorised",
-    "medium": "",
-    "dimensions": "",
-    "description": "",
-    "image": "https://20260124sandiinlis.blob.core.windows.net/blobs/artworks/IMG_3189.jpeg",
-    "localImage": "images/artworks/IMG_3189.jpeg",
-    "availability": "available"
-  },
-  {
     "id": 41,
     "title": "Artwork 41",
     "artist": "Sandy Inglis",
@@ -543,19 +413,6 @@
     "description": "",
     "image": "https://20260124sandiinlis.blob.core.windows.net/blobs/artworks/IMG_3214.jpeg",
     "localImage": "images/artworks/IMG_3214.jpeg",
-    "availability": "available"
-  },
-  {
-    "id": 43,
-    "title": "Artwork 43",
-    "artist": "Sandy Inglis",
-    "year": 2025,
-    "collection": "Uncategorised",
-    "medium": "",
-    "dimensions": "",
-    "description": "",
-    "image": "https://20260124sandiinlis.blob.core.windows.net/blobs/artworks/IMG_3220.jpeg",
-    "localImage": "images/artworks/IMG_3220.jpeg",
     "availability": "available"
   },
   {
