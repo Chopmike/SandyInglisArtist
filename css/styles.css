@@ -273,6 +273,29 @@ ul {
     color: var(--primary-red);
 }
 
+/* Filter header - combine heading and search on one line */
+.filter-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.filter-header h2 {
+    text-align: left;
+    color: var(--primary-red);
+    margin: 0;
+    font-size: 2rem;
+}
+
+.filter-header .search-bar {
+    max-width: 520px;
+    width: 100%;
+    margin: 0;
+}
+
 .filter-controls {
     display: flex;
     justify-content: center;
