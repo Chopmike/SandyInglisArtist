@@ -169,6 +169,21 @@
     opacity: 0.9;
 }
 
+/* Full-width bottom image */
+.about-bottom-image {
+    margin: 2rem 0 3rem;
+    text-align: center;
+}
+
+.about-bottom-image img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
 /* Call to Action */
 .about-cta {
     text-align: center;
