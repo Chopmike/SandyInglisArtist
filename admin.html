@@ -3,178 +3,582 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Upload Artworks - Sandy Inglis Artist</title>
+    <title>Manage Gallery - Sandy Inglis Artist</title>
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/admin.css">
+    <style>
+        body { background: var(--light-bg); }
+
+        .mg-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 110px 20px 60px;
+        }
+
+        .mg-header { text-align: center; margin-bottom: 30px; }
+        .mg-header h1 { color: var(--primary-red); font-size: 2.2rem; margin-bottom: 8px; }
+        .mg-header p { color: var(--text-light); max-width: 640px; margin: 0 auto; }
+
+        /* Steps banner */
+        .mg-steps {
+            display: flex; gap: 14px; flex-wrap: wrap;
+            justify-content: center; margin: 0 auto 30px;
+        }
+        .mg-step {
+            background: var(--white); border-radius: 10px; padding: 14px 18px;
+            box-shadow: 0 3px 12px var(--shadow); flex: 1 1 200px; max-width: 260px;
+            display: flex; gap: 12px; align-items: flex-start;
+        }
+        .mg-step .num {
+            background: var(--primary-red); color: #fff; width: 26px; height: 26px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 0.9rem; flex-shrink: 0;
+        }
+        .mg-step strong { display: block; color: var(--text-dark); font-size: 0.95rem; }
+        .mg-step span { color: var(--text-light); font-size: 0.82rem; line-height: 1.4; }
+
+        /* Drop zone */
+        .mg-dropzone {
+            background: var(--white); border: 3px dashed var(--border-color);
+            border-radius: 14px; padding: 44px 20px; text-align: center;
+            cursor: pointer; transition: all 0.2s ease; margin-bottom: 26px;
+        }
+        .mg-dropzone:hover, .mg-dropzone.drag {
+            border-color: var(--primary-red); background: #fff9f6;
+        }
+        .mg-dropzone svg { color: var(--primary-red); margin-bottom: 10px; }
+        .mg-dropzone h3 { color: var(--text-dark); margin-bottom: 6px; }
+        .mg-dropzone p { color: var(--text-light); font-size: 0.9rem; }
+        .mg-dropzone input[type=file] { display: none; }
+
+        /* Toolbar */
+        .mg-toolbar {
+            display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
+            justify-content: space-between; margin-bottom: 18px;
+        }
+        .mg-count { color: var(--text-light); font-weight: 600; }
+        .mg-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+        .btn-save {
+            background: #28a745; color: #fff; border: none; padding: 12px 22px;
+            border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 1rem;
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-save:hover { background: #218838; }
+        .btn-save:disabled { background: #b7d8bf; cursor: not-allowed; }
+
+        .btn-ghost {
+            background: var(--white); color: var(--text-dark); border: 1px solid var(--border-color);
+            padding: 12px 18px; border-radius: 8px; font-weight: 600; cursor: pointer;
+        }
+        .btn-ghost:hover { border-color: var(--primary-red); color: var(--primary-red); }
+
+        /* Grid */
+        .mg-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .mg-card {
+            background: var(--white); border-radius: 12px; overflow: hidden;
+            box-shadow: 0 4px 16px var(--shadow); position: relative;
+            border: 2px solid transparent; transition: border-color 0.15s, opacity 0.15s;
+        }
+        .mg-card.dragging { opacity: 0.4; }
+        .mg-card.drag-over { border-color: var(--primary-red); }
+        .mg-card.is-new { border-color: #28a745; }
+
+        .mg-card .thumb-wrap { position: relative; background: #f3ede5; }
+        .mg-card .thumb {
+            width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block;
+        }
+        .mg-card .drag-handle {
+            position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.55);
+            color: #fff; border-radius: 6px; padding: 3px 9px; font-size: 0.85rem;
+            cursor: grab; user-select: none;
+        }
+        .mg-card .order-badge {
+            position: absolute; top: 8px; right: 44px; background: rgba(0,0,0,0.55);
+            color: #fff; border-radius: 6px; padding: 3px 9px; font-size: 0.8rem; font-weight: 700;
+        }
+        .mg-card .new-tag {
+            position: absolute; bottom: 8px; left: 8px; background: #28a745;
+            color: #fff; border-radius: 6px; padding: 2px 8px; font-size: 0.72rem; font-weight: 700;
+        }
+        .mg-card .btn-del {
+            position: absolute; top: 8px; right: 8px; background: rgba(196,30,58,0.9);
+            color: #fff; border: none; width: 28px; height: 28px; border-radius: 6px;
+            cursor: pointer; font-size: 1.1rem; line-height: 1; display: flex;
+            align-items: center; justify-content: center;
+        }
+        .mg-card .btn-del:hover { background: var(--deep-red); }
+
+        .mg-card .fields { padding: 14px; }
+        .mg-card .fields label {
+            display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em;
+            color: var(--text-light); margin: 8px 0 3px; font-weight: 700;
+        }
+        .mg-card .fields input,
+        .mg-card .fields select,
+        .mg-card .fields textarea {
+            width: 100%; padding: 8px 10px; border: 1px solid var(--border-color);
+            border-radius: 6px; font-size: 0.9rem; font-family: inherit;
+        }
+        .mg-card .fields input:focus,
+        .mg-card .fields select:focus,
+        .mg-card .fields textarea:focus { outline: none; border-color: var(--primary-red); }
+        .mg-card .fields textarea { resize: vertical; min-height: 54px; }
+        .mg-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+        .mg-empty {
+            grid-column: 1 / -1; text-align: center; padding: 60px 20px;
+            background: var(--white); border-radius: 12px; color: var(--text-light);
+        }
+
+        /* Toast */
+        .mg-toast {
+            position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(120%);
+            background: var(--text-dark); color: #fff; padding: 14px 22px; border-radius: 10px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.25); transition: transform 0.3s ease; z-index: 2000;
+            max-width: 90vw;
+        }
+        .mg-toast.show { transform: translateX(-50%) translateY(0); }
+        .mg-toast.success { background: #1e7e34; }
+        .mg-toast.error { background: var(--deep-red); }
+
+        /* Processing overlay */
+        .mg-busy {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 3000;
+            display: none; align-items: center; justify-content: center; color: #fff;
+            flex-direction: column; gap: 14px;
+        }
+        .mg-busy.show { display: flex; }
+        .mg-busy .spinner {
+            width: 44px; height: 44px; border: 4px solid rgba(255,255,255,0.3);
+            border-top-color: #fff; border-radius: 50%; animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @media (max-width: 600px) {
+            .mg-row { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
     <!-- Header Navigation -->
     <header class="header">
         <nav class="nav-container">
             <div class="logo">
-                <a href="index.html">Sandy Inglis</a>
+                <a href="index.html">
+                    <img src="images/logo-placeholder.svg" alt="Sandy Inglis Artist" class="logo-image">
+                </a>
             </div>
             <ul class="nav-menu">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="index.html#gallery">Gallery</a></li>
-                <li><a href="index.html#about">About</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="about.html">About Sandy Inglis</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="admin.html" class="active admin-link">Admin</a></li>
             </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            <div class="hamburger"><span></span><span></span><span></span></div>
         </nav>
     </header>
 
-    <!-- Admin Section -->
-    <main class="admin-section">
-        <div class="container">
-            <h1>Admin Panel - Upload Artworks</h1>
-            <p class="admin-description">Use this panel to batch upload artworks and manage your gallery.</p>
+    <main class="mg-container">
+        <div class="mg-header">
+            <h1>🎨 Manage Gallery</h1>
+            <p>Add new paintings, drag them into the order you want, remove any you no longer
+               show, then download one package to publish.</p>
+        </div>
 
-            <!-- Quick Links -->
-            <div class="admin-quick-links" style="margin-bottom: 30px; display: flex; gap: 15px; flex-wrap: wrap;">
-                <a href="upload.html" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
-                    📤 Upload to Azure
-                </a>
-                <a href="bulk-upload.html" class="btn btn-secondary" style="display: inline-flex; align-items: center; gap: 8px;">
-                    📋 Bulk Upload Tool
-                </a>
-                <a href="metadata-editor.html" class="btn btn-secondary" style="display: inline-flex; align-items: center; gap: 8px;">
-                    ✏️ Edit Metadata
-                </a>
+        <div class="mg-steps">
+            <div class="mg-step"><div class="num">1</div><div><strong>Add images</strong><span>Drag photos straight from your folder. They're resized &amp; optimised automatically.</span></div></div>
+            <div class="mg-step"><div class="num">2</div><div><strong>Arrange &amp; edit</strong><span>Drag tiles to reorder. Edit titles &amp; details. Click ✕ to remove.</span></div></div>
+            <div class="mg-step"><div class="num">3</div><div><strong>Save package</strong><span>Download the .zip and send it to be published — live in about a minute.</span></div></div>
+        </div>
+
+        <!-- Drop zone -->
+        <div class="mg-dropzone" id="dropzone">
+            <input type="file" id="fileInput" accept="image/*" multiple>
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <h3>Drop new artwork images here</h3>
+            <p>or click to choose files — JPG, PNG, HEIC or WEBP. Big originals are fine.</p>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="mg-toolbar">
+            <div class="mg-count" id="count">Loading…</div>
+            <div class="mg-actions">
+                <button class="btn-ghost" id="reloadBtn" title="Reload the current live gallery, discarding unsaved changes">↺ Reload live gallery</button>
+                <button class="btn-save" id="saveBtn" disabled>⬇ Save package to publish</button>
             </div>
+        </div>
 
-            <!-- Upload Form -->
-            <div class="upload-container">
-                <h2>Add New Artwork</h2>
-                <form id="artworkForm" class="artwork-form">
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="artworkTitle">Artwork Title *</label>
-                            <input type="text" id="artworkTitle" name="title" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="artworkArtist">Artist Name *</label>
-                            <input type="text" id="artworkArtist" name="artist" value="Sandy Inglis" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="artworkYear">Year Created *</label>
-                            <input type="number" id="artworkYear" name="year" min="1900" max="2100" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="artworkCollection">Collection Name</label>
-                            <input type="text" id="artworkCollection" name="collection" placeholder="e.g., Contemporary Collection">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="artworkAccolades">Accolades</label>
-                            <select id="artworkAccolades" name="accolades">
-                                <option value="">None</option>
-                                <option value="Winner">Winner</option>
-                                <option value="Highly Commended">Highly Commended</option>
-                                <option value="Finalist">Finalist</option>
-                                <option value="People's Choice">People's Choice</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="artworkAccoladesDetail">Accolades Details</label>
-                            <input type="text" id="artworkAccoladesDetail" name="accoladesDetail" placeholder="e.g., Best Contemporary Art 2025">
-                        </div>
-                    </div>
-
-                    <div class="form-group full-width">
-                        <label for="artworkDescription">Description (Optional)</label>
-                        <textarea id="artworkDescription" name="description" rows="4" placeholder="e.g., Oil on canvas, 90x120cm. This piece comes framed and ready to hang..."></textarea>
-                    </div>
-
-                    <div class="form-group full-width">
-                        <label for="artworkImage">Upload Image *</label>
-                        <div class="image-upload-area" id="imageUploadArea">
-                            <input type="file" id="artworkImage" name="image" accept="image/*" required>
-                            <div class="upload-placeholder">
-                                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                    <polyline points="17 8 12 3 7 8"></polyline>
-                                    <line x1="12" y1="3" x2="12" y2="15"></line>
-                                </svg>
-                                <p>Click to upload or drag and drop</p>
-                                <span>JPG, PNG, or WEBP (recommended: max 2MB)</span>
-                            </div>
-                            <div class="image-preview" id="imagePreview" style="display: none;">
-                                <img src="" alt="Preview">
-                                <button type="button" class="remove-image" id="removeImage">&times;</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">Add Artwork</button>
-                        <button type="button" class="btn btn-secondary" id="resetForm">Clear Form</button>
-                    </div>
-                </form>
-            </div>
-
-            <!-- Existing Artworks Management -->
-            <div class="manage-container">
-                <h2>Manage Existing Artworks</h2>
-                <div class="artworks-list" id="artworksList">
-                    <!-- Artwork items will be loaded here -->
-                </div>
-            </div>
-
-            <!-- Instructions -->
-            <div class="instructions-container">
-                <h2>Image Upload Guidelines</h2>
-                <div class="instructions-grid">
-                    <div class="instruction-card">
-                        <h3>📐 Dimensions</h3>
-                        <p>For best results, images should be at least 1200px on the longest side. The gallery uses responsive sizing, so all orientations (landscape, portrait, square) are supported without cropping.</p>
-                    </div>
-                    <div class="instruction-card">
-                        <h3>📁 File Format</h3>
-                        <p>Accepted formats: JPG, PNG, WEBP. WEBP is recommended for best performance and quality balance.</p>
-                    </div>
-                    <div class="instruction-card">
-                        <h3>💾 File Size</h3>
-                        <p>Keep files under 2MB for optimal loading times. Use image compression tools if needed.</p>
-                    </div>
-                    <div class="instruction-card">
-                        <h3>🎨 Quality</h3>
-                        <p>Use high-quality images with good lighting and sharp focus. Images will be displayed in a professional gallery layout.</p>
-                    </div>
-                </div>
-
-                <div class="note-box">
-                    <strong>Note:</strong> After uploading artworks, you'll need to commit and push the changes to your GitHub repository for them to appear on the live website. The artworks are stored in <code>data/artworks.json</code> and images in <code>images/artworks/</code>.
-                </div>
-            </div>
+        <!-- Grid -->
+        <div class="mg-grid" id="grid">
+            <div class="mg-empty">Loading current gallery…</div>
         </div>
     </main>
 
-    <!-- Success/Error Modal -->
-    <div class="notification" id="notification">
-        <div class="notification-content">
-            <span id="notificationMessage"></span>
-            <button class="notification-close" id="notificationClose">&times;</button>
-        </div>
-    </div>
+    <div class="mg-toast" id="toast"></div>
+    <div class="mg-busy" id="busy"><div class="spinner"></div><div id="busyText">Working…</div></div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-bottom">
-                <p>&copy; 2026 Sandy Inglis Artist. All rights reserved.</p>
+    <script src="js/vendor/jszip.min.js"></script>
+    <script>
+    // ---------------------------------------------------------------------------
+    // Manage Gallery — single-tool admin for Sandy Inglis Artist
+    //
+    // Loads data/artworks.json, lets the artist add (with automatic browser-side
+    // resize/compress), reorder (drag), edit and delete, then exports a .zip
+    // containing the updated artworks.json + only the NEW optimised images, ready
+    // to be dropped into the repo and pushed. No tokens, no backend.
+    // ---------------------------------------------------------------------------
+
+    const MAX_EDGE = 1800;        // longest side, px
+    const QUALITY = 0.82;         // webp quality
+    const IMG_DIR = 'images/artworks/';
+
+    let items = [];               // working copy of all artworks (live order = array order)
+    let newFiles = [];            // { filename, blob } for images added this session
+
+    const grid = document.getElementById('grid');
+    const countEl = document.getElementById('count');
+    const saveBtn = document.getElementById('saveBtn');
+    const dropzone = document.getElementById('dropzone');
+    const fileInput = document.getElementById('fileInput');
+
+    // ---- load -----------------------------------------------------------------
+    async function loadArtworks() {
+        try {
+            const res = await fetch('data/artworks.json', { cache: 'no-store' });
+            items = await res.json();
+        } catch (e) {
+            items = [];
+            toast('Could not load current gallery — starting empty.', 'error');
+        }
+        newFiles = [];
+        render();
+    }
+
+    // ---- image optimisation ---------------------------------------------------
+    function readFile(file) {
+        return new Promise((resolve, reject) => {
+            const r = new FileReader();
+            r.onload = () => resolve(r.result);
+            r.onerror = reject;
+            r.readAsDataURL(file);
+        });
+    }
+    function loadImage(src) {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => resolve(img);
+            img.onerror = reject;
+            img.src = src;
+        });
+    }
+    async function optimise(file) {
+        const dataUrl = await readFile(file);
+        const img = await loadImage(dataUrl);
+        const scale = Math.min(1, MAX_EDGE / Math.max(img.width, img.height));
+        const w = Math.round(img.width * scale);
+        const h = Math.round(img.height * scale);
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        let blob = await new Promise(r => canvas.toBlob(r, 'image/webp', QUALITY));
+        let ext = 'webp';
+        if (!blob) { // very old browser fallback
+            blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', QUALITY));
+            ext = 'jpg';
+        }
+        return { blob, ext };
+    }
+
+    function slugify(name) {
+        return (name || 'artwork')
+            .toLowerCase()
+            .replace(/\.[^.]+$/, '')        // strip extension
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '')
+            .slice(0, 60) || 'artwork';
+    }
+    function uniqueName(base, ext) {
+        const taken = new Set([
+            ...newFiles.map(f => f.filename),
+            ...items.map(i => (i.localImage || i.image || '').split('/').pop())
+        ]);
+        let name = `${base}.${ext}`, n = 2;
+        while (taken.has(name)) { name = `${base}-${n}.${ext}`; n++; }
+        return name;
+    }
+    function nextId() {
+        return items.length ? Math.max(...items.map(a => Number(a.id) || 0)) + 1 : 1;
+    }
+
+    // ---- adding files ---------------------------------------------------------
+    async function addFiles(fileList) {
+        const files = Array.from(fileList).filter(f => f.type.startsWith('image/'));
+        if (!files.length) { toast('No image files found.', 'error'); return; }
+
+        busy(true, `Optimising ${files.length} image${files.length > 1 ? 's' : ''}…`);
+        let added = 0;
+        for (const file of files) {
+            try {
+                const { blob, ext } = await optimise(file);
+                const filename = uniqueName(slugify(file.name), ext);
+                newFiles.push({ filename, blob });
+                items.push({
+                    id: nextId(),
+                    title: file.name.replace(/\.[^.]+$/, ''),
+                    artist: 'Sandy Inglis',
+                    year: new Date().getFullYear(),
+                    collection: 'Uncategorised',
+                    medium: '',
+                    dimensions: '',
+                    description: '',
+                    image: IMG_DIR + filename,
+                    localImage: IMG_DIR + filename,
+                    availability: 'available',
+                    _new: true,
+                    _preview: URL.createObjectURL(blob),
+                    _kb: Math.round(blob.size / 1024)
+                });
+                added++;
+            } catch (e) {
+                console.error(e);
+                toast(`Could not process ${file.name}`, 'error');
+            }
+        }
+        busy(false);
+        render();
+        if (added) toast(`Added ${added} image${added > 1 ? 's' : ''} — drag to position them.`, 'success');
+    }
+
+    // ---- render ---------------------------------------------------------------
+    function render() {
+        const newCount = items.filter(i => i._new).length;
+        countEl.textContent =
+            `${items.length} artwork${items.length === 1 ? '' : 's'}` +
+            (newCount ? ` · ${newCount} new to publish` : '');
+        saveBtn.disabled = items.length === 0;
+
+        if (!items.length) {
+            grid.innerHTML = '<div class="mg-empty">No artworks yet. Drop some images above to begin.</div>';
+            return;
+        }
+
+        grid.innerHTML = items.map((a, i) => `
+            <div class="mg-card${a._new ? ' is-new' : ''}" draggable="true" data-i="${i}">
+                <div class="thumb-wrap">
+                    <img class="thumb" src="${a._preview || a.image}" alt=""
+                         onerror="this.onerror=null;this.src='${a.localImage || a.image}'">
+                    <span class="drag-handle" title="Drag to reorder">⠿ drag</span>
+                    <span class="order-badge">#${i + 1}</span>
+                    <button class="btn-del" title="Remove" data-del="${i}">×</button>
+                    ${a._new ? `<span class="new-tag">NEW · ${a._kb} KB</span>` : ''}
+                </div>
+                <div class="fields">
+                    <label>Title</label>
+                    <input type="text" value="${esc(a.title)}" data-f="title" data-i="${i}">
+                    <div class="mg-row">
+                        <div>
+                            <label>Year</label>
+                            <input type="number" value="${esc(a.year)}" data-f="year" data-i="${i}">
+                        </div>
+                        <div>
+                            <label>Status</label>
+                            <select data-f="availability" data-i="${i}">
+                                <option value="available" ${a.availability === 'available' ? 'selected' : ''}>Available</option>
+                                <option value="sold" ${a.availability === 'sold' ? 'selected' : ''}>Sold</option>
+                                <option value="commission-only" ${a.availability === 'commission-only' ? 'selected' : ''}>Commission only</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mg-row">
+                        <div>
+                            <label>Medium</label>
+                            <input type="text" value="${esc(a.medium)}" data-f="medium" data-i="${i}" placeholder="e.g. Acrylic">
+                        </div>
+                        <div>
+                            <label>Dimensions</label>
+                            <input type="text" value="${esc(a.dimensions)}" data-f="dimensions" data-i="${i}" placeholder="46h x 53w cm">
+                        </div>
+                    </div>
+                    <label>Collection</label>
+                    <input type="text" value="${esc(a.collection)}" data-f="collection" data-i="${i}" placeholder="Uncategorised">
+                    <label>Description</label>
+                    <textarea data-f="description" data-i="${i}" placeholder="Story, framing, notes…">${esc(a.description)}</textarea>
+                </div>
             </div>
-        </div>
-    </footer>
+        `).join('');
+    }
 
-    <script src="js/admin.js"></script>
+    function esc(t) {
+        if (t === undefined || t === null) return '';
+        return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    // ---- field edits (delegated) ----------------------------------------------
+    grid.addEventListener('input', (e) => {
+        const el = e.target;
+        const f = el.dataset.f, i = el.dataset.i;
+        if (f === undefined || i === undefined) return;
+        let v = el.value;
+        if (f === 'year') v = parseInt(v) || '';
+        items[i][f] = v;
+        if (f === 'year' || f === 'availability') { /* no rerender needed */ }
+    });
+
+    // ---- delete (delegated) ---------------------------------------------------
+    grid.addEventListener('click', (e) => {
+        const del = e.target.dataset.del;
+        if (del === undefined) return;
+        const i = Number(del);
+        const a = items[i];
+        const label = a.title ? `"${a.title}"` : 'this artwork';
+        if (!confirm(`Remove ${label} from the gallery?`)) return;
+        if (a._new) {
+            // drop its pending file & preview too
+            const fn = (a.image || '').split('/').pop();
+            newFiles = newFiles.filter(f => f.filename !== fn);
+            if (a._preview) URL.revokeObjectURL(a._preview);
+        }
+        items.splice(i, 1);
+        render();
+        toast('Removed. Save the package to apply it live.', 'success');
+    });
+
+    // ---- drag to reorder ------------------------------------------------------
+    let dragIndex = null;
+    grid.addEventListener('dragstart', (e) => {
+        const card = e.target.closest('.mg-card');
+        if (!card) return;
+        dragIndex = Number(card.dataset.i);
+        card.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+    });
+    grid.addEventListener('dragend', (e) => {
+        const card = e.target.closest('.mg-card');
+        if (card) card.classList.remove('dragging');
+        document.querySelectorAll('.mg-card.drag-over').forEach(c => c.classList.remove('drag-over'));
+        dragIndex = null;
+    });
+    grid.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        const card = e.target.closest('.mg-card');
+        document.querySelectorAll('.mg-card.drag-over').forEach(c => c.classList.remove('drag-over'));
+        if (card && Number(card.dataset.i) !== dragIndex) card.classList.add('drag-over');
+    });
+    grid.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const card = e.target.closest('.mg-card');
+        if (!card || dragIndex === null) return;
+        const to = Number(card.dataset.i);
+        if (to === dragIndex) return;
+        const [moved] = items.splice(dragIndex, 1);
+        items.splice(to, 0, moved);
+        render();
+    });
+
+    // ---- drop zone & file picker ----------------------------------------------
+    dropzone.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', (e) => { addFiles(e.target.files); fileInput.value = ''; });
+    ['dragenter', 'dragover'].forEach(ev =>
+        dropzone.addEventListener(ev, (e) => { e.preventDefault(); dropzone.classList.add('drag'); }));
+    ['dragleave', 'drop'].forEach(ev =>
+        dropzone.addEventListener(ev, (e) => { e.preventDefault(); dropzone.classList.remove('drag'); }));
+    dropzone.addEventListener('drop', (e) => { if (e.dataTransfer.files.length) addFiles(e.dataTransfer.files); });
+
+    // ---- save package ---------------------------------------------------------
+    saveBtn.addEventListener('click', async () => {
+        busy(true, 'Building your package…');
+        try {
+            // Clean copy of data without internal fields
+            const clean = items.map(a => {
+                const { _new, _preview, _kb, ...rest } = a;
+                return rest;
+            });
+            const zip = new JSZip();
+            zip.file('data/artworks.json', JSON.stringify(clean, null, 2));
+            const imgFolder = zip.folder('images/artworks');
+            for (const f of newFiles) imgFolder.file(f.filename, f.blob);
+            zip.file('READ-ME-FIRST.txt', readmeText(newFiles.length));
+
+            const blob = await zip.generateAsync({ type: 'blob' });
+            const stamp = new Date().toISOString().slice(0, 10);
+            downloadBlob(blob, `gallery-update-${stamp}.zip`);
+            busy(false);
+            toast('Package downloaded. Send it to be published.', 'success');
+        } catch (e) {
+            console.error(e);
+            busy(false);
+            toast('Sorry, could not build the package.', 'error');
+        }
+    });
+
+    function readmeText(n) {
+        return [
+            'SANDY INGLIS ARTIST — GALLERY UPDATE PACKAGE',
+            '============================================',
+            '',
+            `This package contains ${n} new image(s) and the updated gallery data.`,
+            '',
+            'TO PUBLISH (for whoever manages the website):',
+            '1. Copy the "data" folder into the website project, overwriting data/artworks.json.',
+            '2. Copy the "images" folder into the website project (adds files to images/artworks/).',
+            '3. Commit and push to the gh-pages branch.',
+            '   The live site updates within about a minute.',
+            '',
+            'Notes:',
+            '- Only NEW images are included here; existing images are already live.',
+            '- Removed artworks are simply gone from artworks.json — nothing else to do.',
+            '- The gallery shows artworks in the order listed in artworks.json.'
+        ].join('\n');
+    }
+
+    function downloadBlob(blob, name) {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = name; a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 4000);
+    }
+
+    // ---- misc UI --------------------------------------------------------------
+    document.getElementById('reloadBtn').addEventListener('click', () => {
+        if (newFiles.length && !confirm('Reload the live gallery? Unsaved changes will be lost.')) return;
+        items.forEach(i => i._preview && URL.revokeObjectURL(i._preview));
+        loadArtworks();
+    });
+
+    function busy(on, text) {
+        const el = document.getElementById('busy');
+        if (text) document.getElementById('busyText').textContent = text;
+        el.classList.toggle('show', on);
+    }
+    let toastTimer;
+    function toast(msg, type) {
+        const el = document.getElementById('toast');
+        el.textContent = msg;
+        el.className = 'mg-toast show' + (type ? ' ' + type : '');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => el.classList.remove('show'), 4000);
+    }
+
+    window.addEventListener('beforeunload', (e) => {
+        if (newFiles.length) { e.preventDefault(); e.returnValue = ''; }
+    });
+
+    // mobile menu
+    document.querySelector('.hamburger')?.addEventListener('click', function () {
+        document.querySelector('.nav-menu').classList.toggle('active');
+        this.classList.toggle('active');
+    });
+
+    loadArtworks();
+    </script>
 </body>
 </html>
