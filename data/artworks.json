@@ -208,19 +208,6 @@
     "availability": "available"
   },
   {
-    "id": 55,
-    "title": "test 8D-DCECF5DCB7C5_1_201_a",
-    "artist": "Sandy Inglis",
-    "year": 2026,
-    "collection": "Uncategorised",
-    "medium": "",
-    "dimensions": "",
-    "description": "",
-    "image": "images/artworks/b5e4bba4-d6b7-4688-958d-dcecf5dcb7c5-1-201-a.webp",
-    "localImage": "images/artworks/b5e4bba4-d6b7-4688-958d-dcecf5dcb7c5-1-201-a.webp",
-    "availability": "available"
-  },
-  {
     "id": 10,
     "title": "Farmyard",
     "artist": "Sandy Inglis",
@@ -517,32 +504,6 @@
     "description": "",
     "image": "https://20260124sandiinlis.blob.core.windows.net/blobs/artworks/IMG_3086.jpeg",
     "localImage": "images/artworks/IMG_3086.jpeg",
-    "availability": "available"
-  },
-  {
-    "id": 56,
-    "title": "delete test 503_1_105_c",
-    "artist": "Sandy Inglis",
-    "year": 2026,
-    "collection": "Uncategorised",
-    "medium": "",
-    "dimensions": "",
-    "description": "",
-    "image": "images/artworks/39b93187-174b-4f63-a756-558f93584503-1-105-c.webp",
-    "localImage": "images/artworks/39b93187-174b-4f63-a756-558f93584503-1-105-c.webp",
-    "availability": "available"
-  },
-  {
-    "id": 57,
-    "title": "delete test 2",
-    "artist": "Sandy Inglis",
-    "year": 2026,
-    "collection": "Uncategorised",
-    "medium": "",
-    "dimensions": "",
-    "description": "",
-    "image": "images/artworks/5d16371c-0b6a-4de0-8a9a-e2e9997979fd-1-201-a.webp",
-    "localImage": "images/artworks/5d16371c-0b6a-4de0-8a9a-e2e9997979fd-1-201-a.webp",
     "availability": "available"
   },
   {
