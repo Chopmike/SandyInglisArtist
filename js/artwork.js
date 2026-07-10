@@ -48,7 +48,6 @@ async function loadArtworkDetails(artworkId) {
         
         document.getElementById('artworkTitle').textContent = artwork.title;
         document.getElementById('artworkArtist').textContent = artwork.artist;
-        document.getElementById('artworkYear').textContent = artwork.year;
         document.getElementById('artworkCollection').textContent = artwork.collection || 'N/A';
         
         // Handle accolades

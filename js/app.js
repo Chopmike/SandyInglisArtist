@@ -167,8 +167,7 @@ function matchesSearch(artwork, searchTerm) {
         artwork.artist,
         artwork.collection,
         artwork.description,
-        artwork.accolades,
-        artwork.year.toString()
+        artwork.accolades
     ].join(' ').toLowerCase();
     
     return searchableText.includes(searchTerm);
@@ -199,7 +198,6 @@ function renderGallery(artworks) {
                 <h3>${artwork.title}</h3>
                 <div class="gallery-meta">
                     <span>${artwork.artist}</span>
-                    <span>${artwork.year}</span>
                 </div>
                 ${artwork.accolades ? `<span class="accolade-badge">${artwork.accolades}</span>` : ''}
             </div>
@@ -249,7 +247,6 @@ function openModal(artworkId) {
     document.getElementById('modalImage').alt = artwork.title;
     document.getElementById('modalTitle').textContent = artwork.title;
     document.getElementById('modalArtist').textContent = artwork.artist;
-    document.getElementById('modalYear').textContent = artwork.year;
     document.getElementById('modalCollection').textContent = artwork.collection || 'N/A';
     
     const accoladesEl = document.getElementById('modalAccolades');
