@@ -72,11 +72,37 @@
         }
         .btn-ghost:hover { border-color: var(--primary-red); color: var(--primary-red); }
 
+        /* View toggle */
+        .mg-viewtoggle { display: inline-flex; border: 1px solid var(--border-color);
+            border-radius: 8px; overflow: hidden; }
+        .mg-viewtoggle button {
+            background: var(--white); color: var(--text-dark); border: none;
+            padding: 10px 14px; font-weight: 600; cursor: pointer; font-size: 0.9rem;
+            display: inline-flex; align-items: center; gap: 6px;
+        }
+        .mg-viewtoggle button + button { border-left: 1px solid var(--border-color); }
+        .mg-viewtoggle button.active { background: var(--primary-red); color: #fff; }
+
         /* Grid */
         .mg-grid {
             display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
         }
+        /* Compact reorder view */
+        .mg-grid.compact {
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 12px;
+        }
+        .mg-card.compact { cursor: grab; }
+        .mg-card.compact:active { cursor: grabbing; }
+        .mg-card.compact .thumb { aspect-ratio: 1 / 1; }
+        .mg-card.compact .cap {
+            padding: 6px 8px; font-size: 0.75rem; color: var(--text-dark);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .mg-card.compact .order-badge { top: 6px; right: 6px; }
+        .mg-card.compact .btn-del { width: 22px; height: 22px; top: 6px; left: 6px; right: auto; font-size: 0.95rem; }
+        .mg-card.compact .new-tag { bottom: 6px; left: 6px; }
         .mg-card {
             background: var(--white); border-radius: 12px; overflow: hidden;
             box-shadow: 0 4px 16px var(--shadow); position: relative;
@@ -211,6 +237,10 @@
         <div class="mg-toolbar">
             <div class="mg-count" id="count">Loading…</div>
             <div class="mg-actions">
+                <div class="mg-viewtoggle" id="viewToggle">
+                    <button data-view="edit" class="active" title="Full cards — edit titles &amp; details">✎ Edit view</button>
+                    <button data-view="compact" title="Small thumbnails — see many at once and drag to reorder">⠿ Reorder view</button>
+                </div>
                 <button class="btn-ghost" id="reloadBtn" title="Reload the current live gallery, discarding unsaved changes">↺ Reload live gallery</button>
                 <button class="btn-save" id="saveBtn" disabled>⬇ Save package to publish</button>
             </div>
@@ -242,6 +272,7 @@
 
     let items = [];               // working copy of all artworks (live order = array order)
     let newFiles = [];            // { filename, blob } for images added this session
+    let view = localStorage.getItem('mg-view') || 'edit';   // 'edit' | 'compact'
 
     const grid = document.getElementById('grid');
     const countEl = document.getElementById('count');
@@ -365,10 +396,14 @@
             (newCount ? ` · ${newCount} new to publish` : '');
         saveBtn.disabled = items.length === 0;
 
+        grid.classList.toggle('compact', view === 'compact');
+
         if (!items.length) {
             grid.innerHTML = '<div class="mg-empty">No artworks yet. Drop some images above to begin.</div>';
             return;
         }
+
+        if (view === 'compact') { renderCompact(); return; }
 
         grid.innerHTML = items.map((a, i) => `
             <div class="mg-card${a._new ? ' is-new' : ''}" draggable="true" data-i="${i}">
@@ -412,6 +447,21 @@
                     <label>Description</label>
                     <textarea data-f="description" data-i="${i}" placeholder="Story, framing, notes…">${esc(a.description)}</textarea>
                 </div>
+            </div>
+        `).join('');
+    }
+
+    function renderCompact() {
+        grid.innerHTML = items.map((a, i) => `
+            <div class="mg-card compact${a._new ? ' is-new' : ''}" draggable="true" data-i="${i}">
+                <div class="thumb-wrap">
+                    <img class="thumb" src="${a._preview || a.image}" alt="" draggable="false"
+                         onerror="this.onerror=null;this.src='${a.localImage || a.image}'">
+                    <span class="order-badge">#${i + 1}</span>
+                    <button class="btn-del" title="Remove" data-del="${i}">×</button>
+                    ${a._new ? `<span class="new-tag">NEW</span>` : ''}
+                </div>
+                <div class="cap" title="${esc(a.title)}">${esc(a.title) || 'Untitled'}</div>
             </div>
         `).join('');
     }
@@ -546,6 +596,22 @@
         a.href = url; a.download = name; a.click();
         setTimeout(() => URL.revokeObjectURL(url), 4000);
     }
+
+    // ---- view toggle ----------------------------------------------------------
+    const viewToggle = document.getElementById('viewToggle');
+    function setView(v) {
+        view = v;
+        localStorage.setItem('mg-view', v);
+        viewToggle.querySelectorAll('button').forEach(b =>
+            b.classList.toggle('active', b.dataset.view === v));
+        render();
+    }
+    viewToggle.addEventListener('click', (e) => {
+        const btn = e.target.closest('button');
+        if (btn) setView(btn.dataset.view);
+    });
+    // apply persisted choice on load
+    setView(view);
 
     // ---- misc UI --------------------------------------------------------------
     document.getElementById('reloadBtn').addEventListener('click', () => {
