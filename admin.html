@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Stop the Pinterest browser extension adding its "Save" button over images on this admin page -->
+    <meta name="pinterest" content="nopin">
     <title>Manage Gallery - Sandy Inglis Artist</title>
     <link rel="stylesheet" href="css/styles.css">
     <style>
@@ -50,10 +52,18 @@
         .mg-dropzone p { color: var(--text-light); font-size: 0.9rem; }
         .mg-dropzone input[type=file] { display: none; }
 
-        /* Toolbar */
+        /* Toolbar — sticks below the header so Save is always in view while scrolling */
         .mg-toolbar {
             display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
             justify-content: space-between; margin-bottom: 18px;
+            position: sticky; top: 72px; z-index: 900;
+            background: var(--light-bg); padding: 12px 14px; border-radius: 10px;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+        /* Stronger highlight on the whole bar when there are unsaved changes */
+        .mg-toolbar.dirty {
+            background: #fff4e8; box-shadow: 0 2px 12px rgba(196,30,58,0.25);
+            outline: 2px solid var(--primary-red);
         }
         .mg-count { color: var(--text-light); font-weight: 600; }
         .mg-actions { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -413,6 +423,7 @@
         saveBtn.disabled = items.length === 0;
         saveBtn.textContent = dirty ? '⬇ Save changes to publish' : '⬇ Save package to publish';
         saveBtn.classList.toggle('dirty', dirty && items.length > 0);
+        document.querySelector('.mg-toolbar')?.classList.toggle('dirty', dirty && items.length > 0);
     }
 
     // ---- render ---------------------------------------------------------------
