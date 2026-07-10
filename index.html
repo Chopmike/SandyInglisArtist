@@ -46,9 +46,15 @@
         <div class="container">
             <div class="filter-header">
                 <h2>Art Collection</h2>
-                <div class="search-bar">
-                    <label for="searchInput" class="sr-only">Search artworks</label>
-                    <input type="text" id="searchInput" aria-label="Search artworks" placeholder="Search artworks by title, collection, or description...">
+                <div class="filter-tools">
+                    <label for="collectionFilter" class="sr-only">Filter by collection</label>
+                    <select id="collectionFilter" class="collection-select" aria-label="Filter by collection">
+                        <option value="all">All collections</option>
+                    </select>
+                    <div class="search-bar">
+                        <label for="searchInput" class="sr-only">Search artworks</label>
+                        <input type="text" id="searchInput" aria-label="Search artworks" placeholder="Search artworks by title, collection, or description...">
+                    </div>
                 </div>
             </div>
         </div>

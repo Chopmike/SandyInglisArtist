@@ -65,6 +65,12 @@
         }
         .btn-save:hover { background: #218838; }
         .btn-save:disabled { background: #b7d8bf; cursor: not-allowed; }
+        .btn-save.dirty { animation: savePulse 1.4s ease-in-out infinite; }
+        @keyframes savePulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(40,167,69,0.55); }
+            50% { box-shadow: 0 0 0 9px rgba(40,167,69,0); }
+        }
+        .mg-count .unsaved { color: var(--deep-red); font-weight: 700; }
 
         .btn-ghost {
             background: var(--white); color: var(--text-dark); border: 1px solid var(--border-color);
@@ -273,6 +279,7 @@
     let items = [];               // working copy of all artworks (live order = array order)
     let newFiles = [];            // { filename, blob } for images added this session
     let view = localStorage.getItem('mg-view') || 'edit';   // 'edit' | 'compact'
+    let dirty = false;            // true when there are changes not yet saved to a package
 
     const grid = document.getElementById('grid');
     const countEl = document.getElementById('count');
@@ -290,6 +297,7 @@
             toast('Could not load current gallery — starting empty.', 'error');
         }
         newFiles = [];
+        dirty = false;
         render();
     }
 
@@ -385,16 +393,31 @@
         }
         busy(false);
         render();
-        if (added) toast(`Added ${added} image${added > 1 ? 's' : ''} — drag to position them.`, 'success');
+        if (added) {
+            setDirty(true);
+            toast(`Added ${added} image${added > 1 ? 's' : ''} — drag to position them.`, 'success');
+        }
+    }
+
+    // ---- dirty / save state ---------------------------------------------------
+    function setDirty(v) {
+        dirty = v;
+        updateStatus();
+    }
+    function updateStatus() {
+        const newCount = items.filter(i => i._new).length;
+        countEl.innerHTML =
+            `${items.length} artwork${items.length === 1 ? '' : 's'}` +
+            (newCount ? ` · ${newCount} new to publish` : '') +
+            (dirty ? ' · <span class="unsaved">⚠ unsaved changes</span>' : '');
+        saveBtn.disabled = items.length === 0;
+        saveBtn.textContent = dirty ? '⬇ Save changes to publish' : '⬇ Save package to publish';
+        saveBtn.classList.toggle('dirty', dirty && items.length > 0);
     }
 
     // ---- render ---------------------------------------------------------------
     function render() {
-        const newCount = items.filter(i => i._new).length;
-        countEl.textContent =
-            `${items.length} artwork${items.length === 1 ? '' : 's'}` +
-            (newCount ? ` · ${newCount} new to publish` : '');
-        saveBtn.disabled = items.length === 0;
+        updateStatus();
 
         grid.classList.toggle('compact', view === 'compact');
 
@@ -480,7 +503,7 @@
         let v = el.value;
         if (f === 'year') v = parseInt(v) || '';
         items[i][f] = v;
-        if (f === 'year' || f === 'availability') { /* no rerender needed */ }
+        if (!dirty) setDirty(true);
     });
 
     // ---- delete (delegated) ---------------------------------------------------
@@ -498,6 +521,7 @@
             if (a._preview) URL.revokeObjectURL(a._preview);
         }
         items.splice(i, 1);
+        setDirty(true);
         render();
         toast('Removed. Save the package to apply it live.', 'success');
     });
@@ -531,6 +555,7 @@
         if (to === dragIndex) return;
         const [moved] = items.splice(dragIndex, 1);
         items.splice(to, 0, moved);
+        setDirty(true);
         render();
     });
 
@@ -562,6 +587,7 @@
             const stamp = new Date().toISOString().slice(0, 10);
             downloadBlob(blob, `gallery-update-${stamp}.zip`);
             busy(false);
+            setDirty(false);
             toast('Package downloaded. Send it to be published.', 'success');
         } catch (e) {
             console.error(e);
@@ -615,7 +641,7 @@
 
     // ---- misc UI --------------------------------------------------------------
     document.getElementById('reloadBtn').addEventListener('click', () => {
-        if (newFiles.length && !confirm('Reload the live gallery? Unsaved changes will be lost.')) return;
+        if (dirty && !confirm('Reload the live gallery? Unsaved changes will be lost.')) return;
         items.forEach(i => i._preview && URL.revokeObjectURL(i._preview));
         loadArtworks();
     });
@@ -635,7 +661,7 @@
     }
 
     window.addEventListener('beforeunload', (e) => {
-        if (newFiles.length) { e.preventDefault(); e.returnValue = ''; }
+        if (dirty) { e.preventDefault(); e.returnValue = ''; }
     });
 
     // mobile menu

@@ -12,7 +12,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Initialize filters
     initFilters();
-    
+
+    // Initialize collection dropdown
+    initCollectionFilter();
+
     // Initialize search
     initSearch();
     
@@ -119,43 +122,49 @@ function applyFilter(filterValue) {
     renderGallery(filteredArtworks);
 }
 
+// Collection dropdown: build options from the data and filter on change
+function initCollectionFilter() {
+    const select = document.getElementById('collectionFilter');
+    if (!select) return;
+
+    // Unique collection names, ignoring blanks, sorted alphabetically
+    const collections = [...new Set(
+        artworksData.map(a => (a.collection || '').trim()).filter(Boolean)
+    )].sort((a, b) => a.localeCompare(b));
+
+    select.innerHTML = '<option value="all">All collections</option>' +
+        collections.map(c => `<option value="${escapeAttr(c)}">${escapeHtml(c)}</option>`).join('');
+
+    select.addEventListener('change', applyFilters);
+}
+
 // Search functionality
 function initSearch() {
     const searchInput = document.getElementById('searchInput');
-    
-    searchInput.addEventListener('input', (e) => {
-        const searchTerm = e.target.value.toLowerCase();
-        
-        // Get current active filter
-        const activeFilter = document.querySelector('.filter-btn.active');
-        const filterValue = activeFilter ? activeFilter.getAttribute('data-filter') : 'all';
-        
-        // Apply both filter and search
-        if (filterValue === 'all') {
-            filteredArtworks = artworksData.filter(artwork => 
-                matchesSearch(artwork, searchTerm)
-            );
-        } else if (filterValue === 'award-winner') {
-            filteredArtworks = artworksData.filter(artwork => 
-                artwork.accolades && 
-                artwork.accolades.toLowerCase().includes('winner') &&
-                matchesSearch(artwork, searchTerm)
-            );
-        } else if (filterValue === 'highly-commended') {
-            filteredArtworks = artworksData.filter(artwork => 
-                artwork.accolades && 
-                artwork.accolades.toLowerCase().includes('highly commended') &&
-                matchesSearch(artwork, searchTerm)
-            );
-        } else {
-            filteredArtworks = artworksData.filter(artwork => 
-                artwork.year.toString() === filterValue &&
-                matchesSearch(artwork, searchTerm)
-            );
-        }
-        
-        renderGallery(filteredArtworks);
-    });
+    searchInput.addEventListener('input', applyFilters);
+}
+
+// Combined collection + search filtering
+function applyFilters() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const select = document.getElementById('collectionFilter');
+    const collection = select ? select.value : 'all';
+
+    filteredArtworks = artworksData.filter(artwork =>
+        (collection === 'all' || (artwork.collection || '').trim() === collection) &&
+        matchesSearch(artwork, searchTerm)
+    );
+
+    renderGallery(filteredArtworks);
+}
+
+// Small escaping helpers for building option markup safely
+function escapeHtml(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+}
+function escapeAttr(str) {
+    return escapeHtml(str).replace(/"/g, '&quot;');
 }
 
 // Check if artwork matches search term
