@@ -117,6 +117,45 @@
     "availability": "available"
   },
   {
+    "id": 83,
+    "title": "Art25/50A Bubbles of Fun",
+    "artist": "Sandy Inglis",
+    "year": 2025,
+    "collection": "Bubbles of Fun Series",
+    "medium": "Acrylic/Belgian canvas",
+    "dimensions": "30.5 x 30.5 cm",
+    "description": "",
+    "image": "images/artworks/9d3960f7-9f9e-4b5f-99d7-98c46e7904bb-1-201-a.webp",
+    "localImage": "images/artworks/9d3960f7-9f9e-4b5f-99d7-98c46e7904bb-1-201-a.webp",
+    "availability": "available"
+  },
+  {
+    "id": 85,
+    "title": "Art25/50C Bubbles of Fun",
+    "artist": "Sandy Inglis",
+    "year": 2025,
+    "collection": "Bubbles of Fun Series",
+    "medium": "Acrylic/timber frame",
+    "dimensions": "30.5 x 30.5 cm",
+    "description": "",
+    "image": "images/artworks/9d7ddbbf-c1cd-4635-85aa-e3e36f37f1b3-1-105-c.webp",
+    "localImage": "images/artworks/9d7ddbbf-c1cd-4635-85aa-e3e36f37f1b3-1-105-c.webp",
+    "availability": "available"
+  },
+  {
+    "id": 84,
+    "title": "Art25/50B Bubbles of Fun",
+    "artist": "Sandy Inglis",
+    "year": 2025,
+    "collection": "Bubbles of Fun Series",
+    "medium": "Acrylic/timber frame",
+    "dimensions": "30.5 x 30.5 cm",
+    "description": "",
+    "image": "images/artworks/db429835-5116-4f18-a2e6-48a2f1942e8d-1-105-c.webp",
+    "localImage": "images/artworks/db429835-5116-4f18-a2e6-48a2f1942e8d-1-105-c.webp",
+    "availability": "available"
+  },
+  {
     "id": 41,
     "title": "Art2243 Bubbles of Fun",
     "artist": "Sandy Inglis",
@@ -221,19 +260,6 @@
     "availability": "available"
   },
   {
-    "id": 13,
-    "title": "Art24/36 Milky Way",
-    "artist": "Sandy Inglis",
-    "year": 2024,
-    "collection": "Aussie Farms & Outback",
-    "medium": "water col/paper",
-    "dimensions": "42cm x 30cm",
-    "description": "",
-    "image": "https://20260124sandiinlis.blob.core.windows.net/blobs/artworks/IMG_0324.jpeg",
-    "localImage": "images/artworks/IMG_0324.jpeg",
-    "availability": "available"
-  },
-  {
     "id": 2,
     "title": "Art24/21 Rusted Cans",
     "artist": "Sandy Inglis",
@@ -335,6 +361,19 @@
     "description": "",
     "image": "https://20260124sandiinlis.blob.core.windows.net/blobs/artworks/IMG_3334.jpeg",
     "localImage": "images/artworks/IMG_3334.jpeg",
+    "availability": "available"
+  },
+  {
+    "id": 86,
+    "title": "Art22408 Don't Fly Over Spilt Milk",
+    "artist": "Sandy Inglis",
+    "year": 2025,
+    "collection": "Aussie Farms & Outback",
+    "medium": "Water col./paper",
+    "dimensions": "A3",
+    "description": "",
+    "image": "images/artworks/a868aadc-9bba-4153-a488-a90dfe9f2e53-1-105-c.webp",
+    "localImage": "images/artworks/a868aadc-9bba-4153-a488-a90dfe9f2e53-1-105-c.webp",
     "availability": "available"
   },
   {
@@ -777,58 +816,6 @@
     "description": "",
     "image": "images/artworks/810da638-c763-4783-a6e5-1a04dc759c1c-1-105-c.webp",
     "localImage": "images/artworks/810da638-c763-4783-a6e5-1a04dc759c1c-1-105-c.webp",
-    "availability": "available"
-  },
-  {
-    "id": 83,
-    "title": "Art25/50A Bubbles of Fun",
-    "artist": "Sandy Inglis",
-    "year": 2025,
-    "collection": "Bubbles of Fun Series",
-    "medium": "Acrylic/Belgian canvas",
-    "dimensions": "30.5 x 30.5 cm",
-    "description": "",
-    "image": "images/artworks/9d3960f7-9f9e-4b5f-99d7-98c46e7904bb-1-201-a.webp",
-    "localImage": "images/artworks/9d3960f7-9f9e-4b5f-99d7-98c46e7904bb-1-201-a.webp",
-    "availability": "available"
-  },
-  {
-    "id": 84,
-    "title": "Art25/50B Bubbles of Fun",
-    "artist": "Sandy Inglis",
-    "year": 2025,
-    "collection": "Bubbles of Fun Series",
-    "medium": "Acrylic/timber frame",
-    "dimensions": "30.5 x 30.5 cm",
-    "description": "",
-    "image": "images/artworks/db429835-5116-4f18-a2e6-48a2f1942e8d-1-105-c.webp",
-    "localImage": "images/artworks/db429835-5116-4f18-a2e6-48a2f1942e8d-1-105-c.webp",
-    "availability": "available"
-  },
-  {
-    "id": 85,
-    "title": "Art25/50C Bubbles of Fun",
-    "artist": "Sandy Inglis",
-    "year": 2025,
-    "collection": "Bubbles of Fun Series",
-    "medium": "Acrylic/timber frame",
-    "dimensions": "30.5 x 30.5 cm",
-    "description": "",
-    "image": "images/artworks/9d7ddbbf-c1cd-4635-85aa-e3e36f37f1b3-1-105-c.webp",
-    "localImage": "images/artworks/9d7ddbbf-c1cd-4635-85aa-e3e36f37f1b3-1-105-c.webp",
-    "availability": "available"
-  },
-  {
-    "id": 86,
-    "title": "Art22408 Don't Fly Over Spilt Milk",
-    "artist": "Sandy Inglis",
-    "year": 2025,
-    "collection": "Aussie Farms & Outback",
-    "medium": "Water col./paper",
-    "dimensions": "A3",
-    "description": "",
-    "image": "images/artworks/a868aadc-9bba-4153-a488-a90dfe9f2e53-1-105-c.webp",
-    "localImage": "images/artworks/a868aadc-9bba-4153-a488-a90dfe9f2e53-1-105-c.webp",
     "availability": "available"
   }
 ]
