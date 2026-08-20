@@ -27,12 +27,15 @@
 }
 
 .artwork-image-container {
-    background-color: var(--light-bg);
-    padding: 2rem;
-    border-radius: 8px;
+    background-color: var(--mount-black);
+    padding: 2.5rem;
+    border-radius: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    /* hug the artwork instead of stretching to the height of the
+       details column, which left a deep empty black field */
+    align-self: start;
 }
 
 .artwork-main-image {
@@ -41,7 +44,8 @@
     width: auto;
     height: auto;
     object-fit: contain;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    /* a drop shadow does no work against the black mount */
+    box-shadow: none;
 }
 
 .artwork-info-container h1 {
