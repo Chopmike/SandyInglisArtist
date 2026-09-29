@@ -27,14 +27,15 @@
 }
 
 .artwork-image-container {
-    background-color: var(--mount-black);
-    padding: 2.5rem;
+    background-color: var(--gallery-wall);
+    /* extra room at the bottom right for the shadow to fall into */
+    padding: 2.5rem 3.5rem 4rem 2.5rem;
     border-radius: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     /* hug the artwork instead of stretching to the height of the
-       details column, which left a deep empty black field */
+       details column, which left a deep empty field */
     align-self: start;
 }
 
@@ -44,8 +45,13 @@
     width: auto;
     height: auto;
     object-fit: contain;
-    /* a drop shadow does no work against the black mount */
-    box-shadow: none;
+    box-shadow: var(--canvas-float);
+}
+
+.artwork-info-container h1 .catalogue-number {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.8rem;
+    margin-top: 0.75rem;
 }
 
 .artwork-info-container h1 {
@@ -235,7 +241,7 @@
     }
     
     .artwork-image-container {
-        padding: 1rem;
+        padding: 1.25rem 2rem 2.5rem 1.25rem;
     }
     
     .artwork-metadata {

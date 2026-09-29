@@ -30,11 +30,20 @@
     --shadow: rgba(0, 0, 0, 0.1);
     --shadow-hover: rgba(196, 30, 58, 0.25);
 
-    /* Mounted-artwork presentation: every artwork sits on black,
-       the way a framed piece is mounted before it goes on the wall. */
-    --mount-black: #0b0b0b;
-    --mount-caption: #f4f1ec;
-    --mount-meta: #a19c94;
+    /* Floating-canvas presentation: each artwork stands off the wall,
+       lit from the top left, with a long shadow falling down and right. */
+    --canvas-float:
+        2px 2px 0 rgba(0, 0, 0, 0.25),
+        6px 10px 12px rgba(0, 0, 0, 0.18),
+        14px 26px 40px rgba(0, 0, 0, 0.20);
+    --canvas-float-lifted:
+        3px 3px 0 rgba(0, 0, 0, 0.25),
+        10px 16px 18px rgba(0, 0, 0, 0.18),
+        22px 40px 56px rgba(0, 0, 0, 0.22);
+    /* warm gallery wall behind the artwork in the popup and detail page */
+    --gallery-wall: #f6f3ee;
+    --label-meta: #6b6b6b;
+    --label-faint: #9a958d;
 
     /* Aliases for names used across the page stylesheets. Without these
        the rules referring to them resolve to nothing, which left the
@@ -424,38 +433,33 @@ ul {
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 2.5rem;
+    /* extra room so each shadow falls clear of its neighbour */
+    gap: 3.5rem 2.75rem;
     margin-bottom: 3rem;
 }
 
 .gallery-item {
     position: relative;
-    background-color: var(--mount-black);
-    border-radius: 0;
-    overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
-    transition: all 0.4s ease;
     cursor: pointer;
     opacity: 1;
-    transform: scale(1);
-    /* the black band around the artwork is the frame */
-    padding: 14px 14px 0;
 }
 
 .gallery-item.hidden {
     display: none;
 }
 
-.gallery-item:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
-}
-
 .gallery-image {
     width: 100%;
     aspect-ratio: 1 / 1;
     overflow: hidden;
-    background-color: var(--mount-black);
+    background-color: var(--light-bg);
+    box-shadow: var(--canvas-float);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.gallery-item:hover .gallery-image {
+    transform: translate(-3px, -6px);
+    box-shadow: var(--canvas-float-lifted);
 }
 
 .gallery-image img {
@@ -465,26 +469,30 @@ ul {
     transition: transform 0.4s ease;
 }
 
-.gallery-item:hover .gallery-image img {
-    transform: scale(1.1);
-}
-
+/* the wall label under each artwork */
 .gallery-info {
-    padding: 1.1rem 0.25rem 1.3rem;
+    padding: 1.4rem 0.15rem 0;
 }
 
 .gallery-info h3 {
     font-size: 1.15rem;
-    margin-bottom: 0.5rem;
-    color: var(--mount-caption);
+    line-height: 1.3;
+    margin-bottom: 0.3rem;
+    color: var(--text-dark);
 }
 
 .gallery-meta {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-    color: var(--mount-meta);
+    font-size: 0.85rem;
+    color: var(--label-meta);
+}
+
+.catalogue-number {
+    display: block;
+    margin-top: 0.4rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--label-faint);
 }
 
 .accolade-badge {
@@ -600,17 +608,19 @@ ul {
 }
 
 .modal-image {
-    background-color: var(--mount-black);
+    background-color: var(--gallery-wall);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    /* extra room at the bottom right for the shadow to fall into */
+    padding: 2.5rem 3.5rem 4rem 2.5rem;
 }
 
 .modal-image img {
     max-width: 100%;
     max-height: 70vh;
     object-fit: contain;
+    box-shadow: var(--canvas-float);
 }
 
 .modal-info {
@@ -623,6 +633,12 @@ ul {
     color: var(--primary-red);
     /* keep the heading clear of the close button */
     padding-right: 3rem;
+}
+
+.modal-info h2 .catalogue-number {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.75rem;
+    margin-top: 0.6rem;
 }
 
 .modal-details p {

@@ -182,6 +182,17 @@ function matchesSearch(artwork, searchTerm) {
     return searchableText.includes(searchTerm);
 }
 
+// Split a catalogue number such as "Art25/42" off the front of a title
+function splitTitle(title) {
+    const match = (title || '').trim().match(/^(Art\d+\/\d+\w*)\.?\s+(.*)$/i);
+    return match ? { number: match[1], name: match[2] } : { number: '', name: (title || '').trim() };
+}
+
+// Year, medium and size for the wall label under each artwork
+function artworkMeta(artwork) {
+    return [artwork.medium, artwork.year, artwork.dimensions].filter(Boolean).join(' · ');
+}
+
 // Render gallery
 function renderGallery(artworks) {
     const galleryGrid = document.getElementById('galleryGrid');
@@ -195,23 +206,25 @@ function renderGallery(artworks) {
     
     noResults.style.display = 'none';
     
-    galleryGrid.innerHTML = artworks.map(artwork => `
+    galleryGrid.innerHTML = artworks.map(artwork => {
+        const { number, name } = splitTitle(artwork.title);
+        return `
         <div class="gallery-item" data-id="${artwork.id}" onclick="openModal(${artwork.id})">
             <div class="gallery-image">
                 <img src="${artwork.image}" 
-                     alt="${artwork.title}" 
+                     alt="${name}" 
                      loading="lazy"
                      onerror="this.onerror=null; this.src='${artwork.localImage || artwork.image}';">
             </div>
             <div class="gallery-info">
-                <h3>${artwork.title}</h3>
-                <div class="gallery-meta">
-                    <span>${artwork.artist}</span>
-                </div>
+                <h3>${name}</h3>
+                <div class="gallery-meta">${artworkMeta(artwork)}</div>
+                ${number ? `<span class="catalogue-number">${number}</span>` : ''}
                 ${artwork.accolades ? `<span class="accolade-badge">${artwork.accolades}</span>` : ''}
             </div>
         </div>
-    `).join('');
+    `;
+    }).join('');
 }
 
 // Modal functionality
@@ -253,8 +266,16 @@ function openModal(artworkId) {
     
     // Populate modal
     document.getElementById('modalImage').src = artwork.image;
-    document.getElementById('modalImage').alt = artwork.title;
-    document.getElementById('modalTitle').textContent = artwork.title;
+    const { number, name } = splitTitle(artwork.title);
+    document.getElementById('modalImage').alt = name;
+    const modalTitle = document.getElementById('modalTitle');
+    modalTitle.textContent = name;
+    if (number) {
+        const numberEl = document.createElement('span');
+        numberEl.className = 'catalogue-number';
+        numberEl.textContent = number;
+        modalTitle.appendChild(numberEl);
+    }
     document.getElementById('modalArtist').textContent = artwork.artist;
     document.getElementById('modalCollection').textContent = artwork.collection || 'N/A';
     

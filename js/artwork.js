@@ -46,7 +46,16 @@ async function loadArtworkDetails(artworkId) {
             this.src = artwork.localImage || artwork.image;
         };
         
-        document.getElementById('artworkTitle').textContent = artwork.title;
+        // Show the catalogue number (e.g. "Art25/42") under the name, not in front of it
+        const titleMatch = (artwork.title || '').trim().match(/^(Art\d+\/\d+\w*)\.?\s+(.*)$/i);
+        const titleEl = document.getElementById('artworkTitle');
+        titleEl.textContent = titleMatch ? titleMatch[2] : artwork.title;
+        if (titleMatch) {
+            const numberEl = document.createElement('span');
+            numberEl.className = 'catalogue-number';
+            numberEl.textContent = titleMatch[1];
+            titleEl.appendChild(numberEl);
+        }
         document.getElementById('artworkArtist').textContent = artwork.artist;
         document.getElementById('artworkCollection').textContent = artwork.collection || 'N/A';
         
