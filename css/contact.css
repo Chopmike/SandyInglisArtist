@@ -293,7 +293,7 @@
 
 .social-link-item:hover {
     background: var(--ochre);
-    color: white;
+    color: var(--charcoal);
     transform: translateX(5px);
 }
 
