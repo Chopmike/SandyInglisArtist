@@ -136,7 +136,7 @@ function initNavigation() {
 function sendEnquiryEmail() {
     if (!currentArtwork) return;
     
-    const email = 'sandy@chasedesign.com.au';
+    const email = 'sandy@chasedesign.au';
     const subject = `Enquiry: ${currentArtwork.title}`;
     
     // Build email body with artwork details

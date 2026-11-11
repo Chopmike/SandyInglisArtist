@@ -3,7 +3,7 @@
 ## ✅ What's Been Updated
 
 1. **Footer Details Updated:**
-   - ✉️ Email: sandy@chasedesign.com
+   - ✉️ Email: sandy@chasedesign.au
    - 📞 Phone: 0419 488 626
    - 📍 Location: Sydney, Australia
    - 📱 Instagram: https://www.instagram.com/sandyinglisartist/
@@ -212,7 +212,7 @@ The grid uses `object-fit: cover` for thumbnails, so images fill their space bea
 
 ## 📞 Current Contact Info (Updated on Website)
 
-- Email: sandy@chasedesign.com
+- Email: sandy@chasedesign.au
 - Phone: 0419 488 626
 - Location: Sydney, Australia
 - Instagram: @sandyinglisartist
